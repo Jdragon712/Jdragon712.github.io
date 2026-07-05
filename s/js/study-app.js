@@ -96,12 +96,32 @@
     progressLabel.textContent = "진행 " + pct + "% (" + doneSet.size + "/" + chapters.length + "장)";
   }
 
+  function updateTocEdgeLabel() {
+    var btn = document.getElementById("btn-toc-edge");
+    if (!btn) return;
+    var hidden = document.body.classList.contains("sidebar-hidden");
+    btn.textContent = hidden ? ">" : "<";
+    btn.setAttribute("aria-label", hidden ? "목차 열기" : "목차 닫기");
+    btn.setAttribute("title", hidden ? "목차 열기" : "목차 닫기");
+  }
+
   function openTocPanel() {
     document.body.classList.remove("sidebar-hidden");
+    updateTocEdgeLabel();
   }
 
   function closeTocPanel() {
     document.body.classList.add("sidebar-hidden");
+    updateTocEdgeLabel();
+  }
+
+  function toggleTocPanel() {
+    document.body.classList.toggle("sidebar-hidden");
+    updateTocEdgeLabel();
+  }
+
+  function closeTocPanelIfMobile() {
+    if (window.matchMedia("(max-width: 900px)").matches) closeTocPanel();
   }
 
   function togglePart(part) {
@@ -147,9 +167,6 @@
         '" data-part="' +
         meta.num +
         '">' +
-        '<span class="chapter-nav__sym" aria-hidden="true">' +
-        (expanded ? "∨" : ">") +
-        "</span>" +
         '<span class="chapter-nav__label-text">Part ' +
         meta.num +
         " · " +
@@ -158,6 +175,9 @@
         '<span class="chapter-nav__count">' +
         items.length +
         (q ? "개" : "장") +
+        "</span>" +
+        '<span class="chapter-nav__sym" aria-hidden="true">' +
+        (expanded ? "∨" : ">") +
         "</span>" +
         "</button>" +
         '<div class="chapter-nav__items">';
@@ -242,7 +262,7 @@
     ev.preventDefault();
     var idx = parseInt(link.getAttribute("data-index"), 10);
     renderChapter(idx);
-    closeTocPanel();
+    closeTocPanelIfMobile();
   });
 
   document.getElementById("btn-prev").addEventListener("click", function () {
@@ -261,9 +281,7 @@
     renderChapter(currentIndex);
   });
 
-  document.getElementById("btn-menu").addEventListener("click", openTocPanel);
-  document.getElementById("btn-toc-rail").addEventListener("click", openTocPanel);
-  document.getElementById("btn-sidebar-close").addEventListener("click", closeTocPanel);
+  document.getElementById("btn-toc-edge").addEventListener("click", toggleTocPanel);
   document.getElementById("sidebar-backdrop").addEventListener("click", closeTocPanel);
 
   searchInput.addEventListener("input", function () {
@@ -277,7 +295,7 @@
     if (ev.key === "ArrowRight" && currentIndex < chapters.length - 1) renderChapter(currentIndex + 1);
   });
 
-  document.body.classList.add("sidebar-hidden");
+  updateTocEdgeLabel();
   renderNav();
   renderChapter(currentIndex);
 })();
