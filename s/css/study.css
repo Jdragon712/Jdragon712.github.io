@@ -93,9 +93,12 @@ body {
   top: 0;
   left: 0;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
   width: var(--drawer-width);
   height: 100vh;
   height: 100dvh;
+  overflow: hidden;
   transform: translateX(-100%);
   transition: transform 0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
   pointer-events: none;
@@ -108,9 +111,9 @@ body {
 }
 
 .toc-drawer-panel {
+  flex: 1 1 0;
+  min-height: 0;
   height: 100%;
-  max-height: 100vh;
-  max-height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -273,16 +276,32 @@ body.toc-open .drawer-edge-btn:hover {
   opacity: 0.85;
 }
 
-.chapter-nav {
-  flex: 1;
+.toc-drawer-scroll {
+  flex: 1 1 0;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 0.55rem 1rem 1rem;
   scrollbar-width: thin;
-  scrollbar-color: rgba(26, 26, 28, 0.12) transparent;
+  scrollbar-color: rgba(26, 26, 28, 0.22) rgba(0, 0, 0, 0.04);
+}
+
+.toc-drawer-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toc-drawer-scroll::-webkit-scrollbar-thumb {
+  background: rgba(26, 26, 28, 0.18);
+  border-radius: 999px;
+}
+
+.toc-drawer-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.chapter-nav {
+  padding: 0.55rem 1rem 1rem;
 }
 
 .chapter-nav__part {
