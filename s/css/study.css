@@ -191,15 +191,8 @@ body.toc-open .drawer-edge-btn:hover {
 
 .sidebar__head {
   flex-shrink: 0;
-  padding: 1.25rem 1.15rem 1rem;
+  padding: 1.35rem 1.15rem 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.sidebar__head-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
 }
 
 .sidebar-backdrop {
@@ -226,20 +219,8 @@ body.toc-open .drawer-edge-btn:hover {
   }
 }
 
-.sidebar__home {
-  font-size: var(--text-sm);
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  opacity: 0.9;
-}
-
-.sidebar__home:hover {
-  opacity: 1;
-}
-
 .sidebar__title {
-  margin: 0.75rem 0 0.28rem;
+  margin: 0 0 0.28rem;
   font-size: 1.08rem;
   font-weight: 600;
   letter-spacing: -0.02em;
