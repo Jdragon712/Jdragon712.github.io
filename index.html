@@ -8,160 +8,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="color-scheme" content="light" />
-  <title>Jdragon712 — 세종 프로젝트</title>
-  <meta name="description" content="세종 공직자 단골 식당 지도와 개발 학습 교재" />
+  <title>Jdragon712 — AI 네이티브 빌더</title>
+  <meta name="description" content="AI 협업으로 데이터 서비스·학습 교재·자동화를 설계하고 배포하는 Jdragon712의 포트폴리오" />
   <link rel="canonical" href="https://jdragon712.github.io/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/profile.css" />
   <script
     async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9196941060199524"
     crossorigin="anonymous"
   ></script>
-  <style>
-    :root {
-      --bg: #f5f5f7;
-      --surface: #ffffff;
-      --ink: #1d1d1f;
-      --text-secondary: #6e6e73;
-      --muted: #86868b;
-      --accent: #0071e3;
-      --line: rgba(0, 0, 0, 0.06);
-      --radius: 14px;
-      --font: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font);
-      color: var(--ink);
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: clamp(2rem, 6vw, 4rem) 1.25rem 3rem;
-    }
-
-    .hub {
-      width: 100%;
-      max-width: 520px;
-    }
-
-    .hub__eyebrow {
-      margin: 0 0 0.5rem;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    .hub__title {
-      margin: 0 0 0.65rem;
-      font-size: clamp(1.5rem, 5vw, 1.875rem);
-      font-weight: 700;
-      letter-spacing: -0.022em;
-      line-height: 1.2;
-      text-align: center;
-    }
-
-    .hub__lead {
-      margin: 0 0 2rem;
-      font-size: 1.0625rem;
-      line-height: 1.58;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-
-    .hub__grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    .hub-card {
-      display: block;
-      padding: 1.25rem 1.35rem;
-      background: var(--surface);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-
-    .hub-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-    }
-
-    .hub-card__label {
-      display: block;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 0.35rem;
-    }
-
-    .hub-card__title {
-      display: block;
-      font-size: 1.125rem;
-      font-weight: 600;
-      letter-spacing: -0.015em;
-      margin-bottom: 0.4rem;
-    }
-
-    .hub-card__desc {
-      margin: 0;
-      font-size: 0.9375rem;
-      line-height: 1.55;
-      color: var(--text-secondary);
-    }
-
-    .hub-card__arrow {
-      display: inline-block;
-      margin-top: 0.65rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--accent);
-    }
-
-    .hub__foot {
-      margin-top: 2rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.5;
-    }
-  </style>
 </head>
 <body>
-  <main class="hub">
-    <p class="hub__eyebrow">Jdragon712 · GitHub Pages</p>
-    <h1 class="hub__title">세종 프로젝트</h1>
-    <p class="hub__lead">공개 업무추진비 기반 단골 식당 지도와<br />프로젝트 개발 학습 교재입니다.</p>
-
-    <div class="hub__grid">
-      <a class="hub-card" href="/sejong-official-restaurant-map/">
-        <span class="hub-card__label">서비스</span>
-        <span class="hub-card__title">세종 공직자 단골 식당 지도</span>
-        <p class="hub-card__desc">방문 횟수를 지도에서 확인합니다. 금액은 공개하지 않습니다.</p>
-        <span class="hub-card__arrow">지도 열기 →</span>
-      </a>
-
-      <a class="hub-card" href="/s/">
-        <span class="hub-card__label">학습</span>
-        <span class="hub-card__title">개발 가이드 교재</span>
-        <p class="hub-card__desc">5 Part · 52장. ETL 파이프라인부터 웹·배포·소스 해설까지 단계별 학습.</p>
-        <span class="hub-card__arrow">교재 열기 →</span>
-      </a>
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="/">Jdragon712</a>
+      <nav class="nav__links" id="nav-links" aria-label="주요 링크"></nav>
     </div>
+  </header>
 
-    <p class="hub__foot">© Jdragon712 · hub</p>
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-name">
+      <div class="hero__content">
+        <span class="hero__badge">
+          <span class="hero__badge-dot" aria-hidden="true"></span>
+          AI 네이티브 빌더
+        </span>
+        <h1 class="hero__name" id="hero-name">Jdragon712</h1>
+        <p class="hero__tagline" id="hero-tagline"></p>
+        <p class="hero__bio" id="hero-bio"></p>
+      </div>
+      <div class="hero__avatar" id="hero-avatar" aria-hidden="true">JD</div>
+    </section>
+
+    <section class="section" aria-label="핵심 지표">
+      <div class="metrics" id="metrics"></div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="section__head">
+        <span class="section__label">Projects</span>
+        <h2 class="section__title" id="projects-title">공개 프로젝트</h2>
+        <p class="section__desc">데이터 수집부터 배포·교재화까지, 실제로 운영 중인 결과물입니다.</p>
+      </div>
+      <div class="projects" id="projects-grid"></div>
+      <p class="add-hint">새 프로젝트 추가: <code>data/profile.json</code>의 <code>projects</code> 배열에 항목을 넣으면 자동으로 카드가 생성됩니다.</p>
+    </section>
+
+    <section class="section" id="capabilities" aria-labelledby="capabilities-title">
+      <div class="section__head">
+        <span class="section__label">Capabilities</span>
+        <h2 class="section__title" id="capabilities-title">AI 활용 역량</h2>
+        <p class="section__desc">Grok·Hermes 에이전트와 MCP·자동화를 결합해 만드는 일의 범위입니다.</p>
+      </div>
+      <div class="capabilities" id="capabilities"></div>
+    </section>
+
+    <section class="section" id="workflow" aria-labelledby="workflow-title">
+      <div class="section__head">
+        <span class="section__label">Workflow</span>
+        <h2 class="section__title" id="workflow-title">만드는 방식</h2>
+        <p class="section__desc">아이디어에서 공개 서비스까지, AI와 함께 반복하는 4단계입니다.</p>
+      </div>
+      <div class="workflow" id="workflow"></div>
+    </section>
+
+    <footer class="foot">
+      <p class="foot__copy" id="foot-copy"></p>
+      <div class="foot__links" id="foot-links"></div>
+    </footer>
   </main>
+
+  <script src="js/profile.js"></script>
 </body>
 </html>
