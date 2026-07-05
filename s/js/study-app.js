@@ -3,7 +3,6 @@
 
   var STORAGE_DONE = "sejong-study-done-chapters";
   var STORAGE_LAST = "sejong-study-last-chapter";
-  var STORAGE_PARTS = "sejong-study-part-collapsed";
   var MODULE_META = [
     { num: 1, title: "기초" },
     { num: 2, title: "데이터 파이프라인" },
@@ -57,23 +56,6 @@
     }
   } catch (_e2) {}
 
-  var collapsedParts = new Set();
-  try {
-    var storedParts = localStorage.getItem(STORAGE_PARTS);
-    if (storedParts) {
-      var parsedParts = JSON.parse(storedParts);
-      if (Array.isArray(parsedParts)) {
-        parsedParts.forEach(function (n) {
-          collapsedParts.add(n);
-        });
-      }
-    } else if (chapters[currentIndex]) {
-      MODULE_META.forEach(function (m) {
-        if (m.num !== chapters[currentIndex].moduleNum) collapsedParts.add(m.num);
-      });
-    }
-  } catch (_e5) {}
-
   function saveDone() {
     try {
       localStorage.setItem(STORAGE_DONE, JSON.stringify(Array.from(doneSet)));
@@ -92,41 +74,12 @@
     progressLabel.textContent = "진행 " + pct + "% (" + doneSet.size + "/" + chapters.length + "장)";
   }
 
-  function saveCollapsedParts() {
-    try {
-      localStorage.setItem(STORAGE_PARTS, JSON.stringify(Array.from(collapsedParts)));
-    } catch (_e6) {}
+  function openTocPanel() {
+    document.body.classList.remove("sidebar-hidden");
   }
 
-  function isMobileNav() {
-    return window.innerWidth <= 900;
-  }
-
-  function collapseAllParts() {
-    MODULE_META.forEach(function (m) {
-      collapsedParts.add(m.num);
-    });
-    saveCollapsedParts();
-    renderNav(searchInput.value);
-  }
-
-  function expandAllParts() {
-    collapsedParts.clear();
-    saveCollapsedParts();
-    renderNav(searchInput.value);
-  }
-
-  function togglePart(part) {
-    if (collapsedParts.has(part)) {
-      collapsedParts.clear();
-      MODULE_META.forEach(function (m) {
-        if (m.num !== part) collapsedParts.add(m.num);
-      });
-    } else {
-      collapsedParts.add(part);
-    }
-    saveCollapsedParts();
-    renderNav(searchInput.value);
+  function closeTocPanel() {
+    document.body.classList.add("sidebar-hidden");
   }
 
   function chapterMatches(ch, q) {
@@ -150,23 +103,12 @@
       });
       if (!items.length) return;
 
-      var expanded = q ? true : !collapsedParts.has(meta.num);
       html +=
-        '<div class="chapter-nav__part' +
-        (expanded ? "" : " is-collapsed") +
-        '" data-part="' +
+        '<div class="chapter-nav__part" data-part="' +
         meta.num +
         '">' +
-        '<button type="button" class="chapter-nav__toggle" aria-expanded="' +
-        expanded +
-        '" aria-label="Part ' +
-        meta.num +
-        (expanded ? " 접기" : " 펼치기") +
-        '" data-part="' +
-        meta.num +
-        '">' +
-        '<span class="chapter-nav__chevron" aria-hidden="true"></span>' +
-        '<span class="chapter-nav__toggle-text">Part ' +
+        '<div class="chapter-nav__label">' +
+        '<span class="chapter-nav__label-text">Part ' +
         meta.num +
         " · " +
         meta.title +
@@ -175,10 +117,7 @@
         items.length +
         (q ? "개" : "장") +
         "</span>" +
-        '<span class="chapter-nav__toggle-hint">' +
-        (expanded ? "접기" : "펼치기") +
-        "</span>" +
-        "</button>" +
+        "</div>" +
         '<div class="chapter-nav__items">';
 
       items.forEach(function (item) {
@@ -204,17 +143,6 @@
       html += "</div></div>";
     });
     nav.innerHTML = html;
-    bindNavToggles();
-  }
-
-  function bindNavToggles() {
-    nav.querySelectorAll(".chapter-nav__toggle").forEach(function (btn) {
-      btn.addEventListener("click", function (ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        togglePart(parseInt(btn.getAttribute("data-part"), 10));
-      });
-    });
   }
 
   function renderChapter(index) {
@@ -246,8 +174,6 @@
       '<div class="chapter-doc__body">' +
       ch.html +
       "</div></article>";
-    collapsedParts.delete(ch.moduleNum);
-    saveCollapsedParts();
     renderNav(searchInput.value);
     updateProgress();
     window.scrollTo(0, 0);
@@ -264,7 +190,7 @@
     ev.preventDefault();
     var idx = parseInt(link.getAttribute("data-index"), 10);
     renderChapter(idx);
-    if (isMobileNav()) document.body.classList.add("sidebar-hidden");
+    closeTocPanel();
   });
 
   document.getElementById("btn-prev").addEventListener("click", function () {
@@ -283,20 +209,10 @@
     renderChapter(currentIndex);
   });
 
-  document.getElementById("btn-menu").addEventListener("click", function () {
-    document.body.classList.toggle("sidebar-hidden");
-  });
-
-  document.getElementById("btn-sidebar-close").addEventListener("click", function () {
-    document.body.classList.add("sidebar-hidden");
-  });
-
-  document.getElementById("sidebar-backdrop").addEventListener("click", function () {
-    document.body.classList.add("sidebar-hidden");
-  });
-
-  document.getElementById("btn-toc-collapse-all").addEventListener("click", collapseAllParts);
-  document.getElementById("btn-toc-expand-all").addEventListener("click", expandAllParts);
+  document.getElementById("btn-menu").addEventListener("click", openTocPanel);
+  document.getElementById("btn-toc-rail").addEventListener("click", openTocPanel);
+  document.getElementById("btn-sidebar-close").addEventListener("click", closeTocPanel);
+  document.getElementById("sidebar-backdrop").addEventListener("click", closeTocPanel);
 
   searchInput.addEventListener("input", function () {
     renderNav(searchInput.value);
@@ -304,14 +220,12 @@
 
   document.addEventListener("keydown", function (ev) {
     if (ev.target && /input|textarea/i.test(ev.target.tagName)) return;
+    if (ev.key === "Escape") closeTocPanel();
     if (ev.key === "ArrowLeft" && currentIndex > 0) renderChapter(currentIndex - 1);
     if (ev.key === "ArrowRight" && currentIndex < chapters.length - 1) renderChapter(currentIndex + 1);
   });
 
-  if (isMobileNav()) {
-    document.body.classList.add("sidebar-hidden");
-  }
-
+  document.body.classList.add("sidebar-hidden");
   renderNav();
   renderChapter(currentIndex);
 })();
