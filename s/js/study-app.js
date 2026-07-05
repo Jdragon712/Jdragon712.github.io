@@ -118,14 +118,10 @@
 
   function togglePart(part) {
     if (collapsedParts.has(part)) {
-      if (isMobileNav()) {
-        collapsedParts.clear();
-        MODULE_META.forEach(function (m) {
-          if (m.num !== part) collapsedParts.add(m.num);
-        });
-      } else {
-        collapsedParts.delete(part);
-      }
+      collapsedParts.clear();
+      MODULE_META.forEach(function (m) {
+        if (m.num !== part) collapsedParts.add(m.num);
+      });
     } else {
       collapsedParts.add(part);
     }
@@ -208,6 +204,17 @@
       html += "</div></div>";
     });
     nav.innerHTML = html;
+    bindNavToggles();
+  }
+
+  function bindNavToggles() {
+    nav.querySelectorAll(".chapter-nav__toggle").forEach(function (btn) {
+      btn.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        togglePart(parseInt(btn.getAttribute("data-part"), 10));
+      });
+    });
   }
 
   function renderChapter(index) {
@@ -251,32 +258,14 @@
     if (window.STUDY_DEMO_BOOT) window.STUDY_DEMO_BOOT(content);
   }
 
-  var navTapLock = 0;
-
-  function handleNavActivate(ev) {
-    var now = Date.now();
-    if (now - navTapLock < 350) return;
-
-    var toggle = ev.target.closest(".chapter-nav__toggle");
-    if (toggle) {
-      if (ev.cancelable) ev.preventDefault();
-      ev.stopPropagation();
-      navTapLock = now;
-      togglePart(parseInt(toggle.getAttribute("data-part"), 10));
-      return;
-    }
-
+  nav.addEventListener("click", function (ev) {
     var link = ev.target.closest(".chapter-link");
     if (!link) return;
-    if (ev.cancelable) ev.preventDefault();
-    navTapLock = now;
+    ev.preventDefault();
     var idx = parseInt(link.getAttribute("data-index"), 10);
     renderChapter(idx);
     if (isMobileNav()) document.body.classList.add("sidebar-hidden");
-  }
-
-  nav.addEventListener("click", handleNavActivate);
-  nav.addEventListener("touchend", handleNavActivate, { passive: false });
+  });
 
   document.getElementById("btn-prev").addEventListener("click", function () {
     if (currentIndex > 0) renderChapter(currentIndex - 1);
@@ -294,37 +283,20 @@
     renderChapter(currentIndex);
   });
 
-  function bindTap(id, fn) {
-    var node = document.getElementById(id);
-    if (!node) return;
-    var lock = 0;
-    function run() {
-      var now = Date.now();
-      if (now - lock < 350) return;
-      lock = now;
-      fn();
-    }
-    node.addEventListener("click", run);
-    node.addEventListener("touchend", function (ev) {
-      ev.preventDefault();
-      run();
-    }, { passive: false });
-  }
-
-  bindTap("btn-menu", function () {
+  document.getElementById("btn-menu").addEventListener("click", function () {
     document.body.classList.toggle("sidebar-hidden");
   });
 
-  bindTap("btn-sidebar-close", function () {
+  document.getElementById("btn-sidebar-close").addEventListener("click", function () {
     document.body.classList.add("sidebar-hidden");
   });
 
-  bindTap("sidebar-backdrop", function () {
+  document.getElementById("sidebar-backdrop").addEventListener("click", function () {
     document.body.classList.add("sidebar-hidden");
   });
 
-  bindTap("btn-toc-collapse-all", collapseAllParts);
-  bindTap("btn-toc-expand-all", expandAllParts);
+  document.getElementById("btn-toc-collapse-all").addEventListener("click", collapseAllParts);
+  document.getElementById("btn-toc-expand-all").addEventListener("click", expandAllParts);
 
   searchInput.addEventListener("input", function () {
     renderNav(searchInput.value);

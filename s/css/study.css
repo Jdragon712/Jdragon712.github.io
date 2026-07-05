@@ -210,6 +210,13 @@ body {
   background: rgba(0, 113, 227, 0.12);
 }
 
+.sidebar__toc-hint {
+  margin: 0;
+  font-size: var(--text-2xs);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 .chapter-nav {
   flex: 1;
   overflow-y: auto;
@@ -221,6 +228,14 @@ body {
 .chapter-nav__part {
   margin: 0;
   border-bottom: 1px solid var(--line);
+}
+
+.chapter-nav__part.is-collapsed {
+  background: var(--surface-secondary);
+}
+
+.chapter-nav__part.is-collapsed .chapter-nav__toggle-text {
+  color: var(--muted);
 }
 
 .chapter-nav__part:last-child {
@@ -298,7 +313,10 @@ body {
 }
 
 .chapter-nav__part.is-collapsed .chapter-nav__items {
-  display: none;
+  display: none !important;
+  height: 0;
+  overflow: hidden;
+  padding: 0;
 }
 
 .chapter-link {
