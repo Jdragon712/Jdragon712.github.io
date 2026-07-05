@@ -96,20 +96,36 @@
     progressLabel.textContent = "진행 " + pct + "% (" + doneSet.size + "/" + chapters.length + "장)";
   }
 
+  function syncDrawerEdge() {
+    var drawer = document.getElementById("toc-drawer");
+    var btn = document.getElementById("btn-toc-edge");
+    if (!drawer || !btn) return;
+    var open = drawer.classList.contains("open");
+    var w = open ? drawer.getBoundingClientRect().width : 0;
+    btn.style.left = w + "px";
+  }
+
   function setTocOpen(open) {
     var shell = document.getElementById("study-shell");
     var drawer = document.getElementById("toc-drawer");
     var toggle = document.getElementById("btn-toc-edge");
     var icon = document.getElementById("toc-edge-icon");
+    var openBtn = document.getElementById("btn-toc-open");
+    var collapseBtn = document.getElementById("btn-toc-collapse");
     if (!drawer) return;
     drawer.classList.toggle("open", open);
     drawer.setAttribute("aria-hidden", open ? "false" : "true");
+    document.body.classList.toggle("toc-open", open);
     if (shell) shell.classList.toggle("drawer-open", open);
     if (toggle) {
       toggle.setAttribute("aria-label", open ? "목차 닫기" : "목차 열기");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.hidden = false;
     }
     if (icon) icon.textContent = open ? "‹" : "›";
+    if (openBtn) openBtn.hidden = open;
+    if (collapseBtn) collapseBtn.hidden = !open;
+    requestAnimationFrame(syncDrawerEdge);
   }
 
   function openTocPanel() {
@@ -285,7 +301,10 @@
   });
 
   document.getElementById("btn-toc-edge").addEventListener("click", toggleTocPanel);
+  document.getElementById("btn-toc-collapse").addEventListener("click", closeTocPanel);
+  document.getElementById("btn-toc-open").addEventListener("click", openTocPanel);
   document.getElementById("sidebar-backdrop").addEventListener("click", closeTocPanel);
+  window.addEventListener("resize", syncDrawerEdge);
 
   searchInput.addEventListener("input", function () {
     renderNav(searchInput.value);
