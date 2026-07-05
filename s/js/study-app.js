@@ -3,6 +3,7 @@
 
   var STORAGE_DONE = "sejong-study-done-chapters";
   var STORAGE_LAST = "sejong-study-last-chapter";
+  var STORAGE_PARTS = "sejong-study-part-collapsed";
   var MODULE_META = [
     { num: 1, title: "기초" },
     { num: 2, title: "데이터 파이프라인" },
@@ -56,6 +57,21 @@
     }
   } catch (_e2) {}
 
+  var collapsedParts = new Set();
+  try {
+    var storedParts = localStorage.getItem(STORAGE_PARTS);
+    if (storedParts) {
+      var parsedParts = JSON.parse(storedParts);
+      if (Array.isArray(parsedParts)) {
+        parsedParts.forEach(function (n) { collapsedParts.add(n); });
+      }
+    } else if (chapters[currentIndex]) {
+      MODULE_META.forEach(function (m) {
+        if (m.num !== chapters[currentIndex].moduleNum) collapsedParts.add(m.num);
+      });
+    }
+  } catch (_e5) {}
+
   function saveDone() {
     try {
       localStorage.setItem(STORAGE_DONE, JSON.stringify(Array.from(doneSet)));
@@ -66,6 +82,12 @@
     try {
       localStorage.setItem(STORAGE_LAST, id);
     } catch (_e4) {}
+  }
+
+  function saveCollapsedParts() {
+    try {
+      localStorage.setItem(STORAGE_PARTS, JSON.stringify(Array.from(collapsedParts)));
+    } catch (_e6) {}
   }
 
   function updateProgress() {
@@ -80,6 +102,16 @@
 
   function closeTocPanel() {
     document.body.classList.add("sidebar-hidden");
+  }
+
+  function togglePart(part) {
+    if (collapsedParts.has(part)) {
+      collapsedParts.delete(part);
+    } else {
+      collapsedParts.add(part);
+    }
+    saveCollapsedParts();
+    renderNav(searchInput.value);
   }
 
   function chapterMatches(ch, q) {
@@ -103,11 +135,21 @@
       });
       if (!items.length) return;
 
+      var expanded = q ? true : !collapsedParts.has(meta.num);
       html +=
-        '<div class="chapter-nav__part" data-part="' +
+        '<div class="chapter-nav__part' +
+        (expanded ? "" : " is-collapsed") +
+        '" data-part="' +
         meta.num +
         '">' +
-        '<div class="chapter-nav__label">' +
+        '<button type="button" class="chapter-nav__toggle" aria-expanded="' +
+        expanded +
+        '" data-part="' +
+        meta.num +
+        '">' +
+        '<span class="chapter-nav__sym" aria-hidden="true">' +
+        (expanded ? "∨" : ">") +
+        "</span>" +
         '<span class="chapter-nav__label-text">Part ' +
         meta.num +
         " · " +
@@ -117,7 +159,7 @@
         items.length +
         (q ? "개" : "장") +
         "</span>" +
-        "</div>" +
+        "</button>" +
         '<div class="chapter-nav__items">';
 
       items.forEach(function (item) {
@@ -143,6 +185,14 @@
       html += "</div></div>";
     });
     nav.innerHTML = html;
+
+    nav.querySelectorAll(".chapter-nav__toggle").forEach(function (btn) {
+      btn.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        togglePart(parseInt(btn.getAttribute("data-part"), 10));
+      });
+    });
   }
 
   function renderChapter(index) {
@@ -174,6 +224,8 @@
       '<div class="chapter-doc__body">' +
       ch.html +
       "</div></article>";
+    collapsedParts.delete(ch.moduleNum);
+    saveCollapsedParts();
     renderNav(searchInput.value);
     updateProgress();
     window.scrollTo(0, 0);
