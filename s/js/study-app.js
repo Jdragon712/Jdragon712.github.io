@@ -179,6 +179,9 @@
         items.length +
         (q ? "개" : "장") +
         "</span>" +
+        '<span class="chapter-nav__toggle-hint">' +
+        (expanded ? "접기" : "펼치기") +
+        "</span>" +
         "</button>" +
         '<div class="chapter-nav__items">';
 
@@ -248,21 +251,32 @@
     if (window.STUDY_DEMO_BOOT) window.STUDY_DEMO_BOOT(content);
   }
 
-  nav.addEventListener("click", function (ev) {
+  var navTapLock = 0;
+
+  function handleNavActivate(ev) {
+    var now = Date.now();
+    if (now - navTapLock < 350) return;
+
     var toggle = ev.target.closest(".chapter-nav__toggle");
     if (toggle) {
-      ev.preventDefault();
+      if (ev.cancelable) ev.preventDefault();
       ev.stopPropagation();
+      navTapLock = now;
       togglePart(parseInt(toggle.getAttribute("data-part"), 10));
       return;
     }
+
     var link = ev.target.closest(".chapter-link");
     if (!link) return;
-    ev.preventDefault();
+    if (ev.cancelable) ev.preventDefault();
+    navTapLock = now;
     var idx = parseInt(link.getAttribute("data-index"), 10);
     renderChapter(idx);
-    if (window.innerWidth <= 900) document.body.classList.add("sidebar-hidden");
-  });
+    if (isMobileNav()) document.body.classList.add("sidebar-hidden");
+  }
+
+  nav.addEventListener("click", handleNavActivate);
+  nav.addEventListener("touchend", handleNavActivate, { passive: false });
 
   document.getElementById("btn-prev").addEventListener("click", function () {
     if (currentIndex > 0) renderChapter(currentIndex - 1);
@@ -280,17 +294,37 @@
     renderChapter(currentIndex);
   });
 
-  document.getElementById("btn-menu").addEventListener("click", function () {
+  function bindTap(id, fn) {
+    var node = document.getElementById(id);
+    if (!node) return;
+    var lock = 0;
+    function run() {
+      var now = Date.now();
+      if (now - lock < 350) return;
+      lock = now;
+      fn();
+    }
+    node.addEventListener("click", run);
+    node.addEventListener("touchend", function (ev) {
+      ev.preventDefault();
+      run();
+    }, { passive: false });
+  }
+
+  bindTap("btn-menu", function () {
     document.body.classList.toggle("sidebar-hidden");
   });
 
-  document.getElementById("btn-toc-collapse-all").addEventListener("click", function () {
-    collapseAllParts();
+  bindTap("btn-sidebar-close", function () {
+    document.body.classList.add("sidebar-hidden");
   });
 
-  document.getElementById("btn-toc-expand-all").addEventListener("click", function () {
-    expandAllParts();
+  bindTap("sidebar-backdrop", function () {
+    document.body.classList.add("sidebar-hidden");
   });
+
+  bindTap("btn-toc-collapse-all", collapseAllParts);
+  bindTap("btn-toc-expand-all", expandAllParts);
 
   searchInput.addEventListener("input", function () {
     renderNav(searchInput.value);
@@ -301,6 +335,10 @@
     if (ev.key === "ArrowLeft" && currentIndex > 0) renderChapter(currentIndex - 1);
     if (ev.key === "ArrowRight" && currentIndex < chapters.length - 1) renderChapter(currentIndex + 1);
   });
+
+  if (isMobileNav()) {
+    document.body.classList.add("sidebar-hidden");
+  }
 
   renderNav();
   renderChapter(currentIndex);
