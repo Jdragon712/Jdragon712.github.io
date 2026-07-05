@@ -190,15 +190,31 @@ a:hover {
 .hero {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 2rem;
+  grid-template-areas:
+    "badge logo"
+    "main logo";
+  gap: 0 2rem;
   align-items: start;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
+.hero__lead {
+  display: contents;
+}
+
 .hero__aside {
+  grid-area: logo;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+}
+
+.hero__badge {
+  grid-area: badge;
+}
+
+.hero__content {
+  grid-area: main;
 }
 
 .hero__badge {
@@ -558,34 +574,44 @@ a:hover {
 
 @media (max-width: 680px) {
   .hero {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero__lead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    width: 100%;
   }
 
   .hero__aside {
-    order: -1;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 0.15rem;
+    flex: 0 1 auto;
+    min-width: 0;
+    justify-content: flex-start;
+  }
+
+  .hero__badge {
+    flex-shrink: 0;
+    margin-bottom: 0;
+    padding: 0.32rem 0.62rem;
+    font-size: 0.6875rem;
   }
 
   .brand-logo--nav {
-    padding: 0.32rem 0.58rem;
-    min-height: 24px;
-  }
-
-  .brand-logo--nav .brand-logo__wordmark {
-    font-size: clamp(0.5625rem, 2.7vw, 0.6875rem);
+    display: none;
   }
 
   .brand-logo--hero {
-    padding: 0.78rem 1.45rem;
-    min-height: 48px;
-    margin: 0 auto;
+    padding: 0.55rem 1rem;
+    min-height: 40px;
+    margin: 0;
   }
 
   .brand-logo--hero .brand-logo__wordmark {
-    font-size: clamp(0.9375rem, 4.5vw, 1.125rem);
+    font-size: clamp(0.8125rem, 3.6vw, 0.9375rem);
   }
 
   .projects {
