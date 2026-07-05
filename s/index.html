@@ -26,8 +26,14 @@
         <p class="sidebar__sub">프로젝트 기반 학습 교재</p>
       </div>
       <div class="sidebar__toc-bar">
-        <span class="sidebar__toc-label">목차</span>
-        <span class="sidebar__toc-meta">5 Part · 52장</span>
+        <div class="sidebar__toc-head">
+          <span class="sidebar__toc-label">목차</span>
+          <span class="sidebar__toc-meta">5 Part · 52장</span>
+        </div>
+        <div class="sidebar__toc-actions">
+          <button type="button" id="btn-toc-collapse-all" class="toc-action">모두 접기</button>
+          <button type="button" id="btn-toc-expand-all" class="toc-action">모두 펼치기</button>
+        </div>
       </div>
       <nav id="chapter-nav" class="chapter-nav" aria-label="목차"></nav>
       <div class="sidebar__foot">

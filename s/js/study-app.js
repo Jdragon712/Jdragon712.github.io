@@ -98,6 +98,41 @@
     } catch (_e6) {}
   }
 
+  function isMobileNav() {
+    return window.innerWidth <= 900;
+  }
+
+  function collapseAllParts() {
+    MODULE_META.forEach(function (m) {
+      collapsedParts.add(m.num);
+    });
+    saveCollapsedParts();
+    renderNav(searchInput.value);
+  }
+
+  function expandAllParts() {
+    collapsedParts.clear();
+    saveCollapsedParts();
+    renderNav(searchInput.value);
+  }
+
+  function togglePart(part) {
+    if (collapsedParts.has(part)) {
+      if (isMobileNav()) {
+        collapsedParts.clear();
+        MODULE_META.forEach(function (m) {
+          if (m.num !== part) collapsedParts.add(m.num);
+        });
+      } else {
+        collapsedParts.delete(part);
+      }
+    } else {
+      collapsedParts.add(part);
+    }
+    saveCollapsedParts();
+    renderNav(searchInput.value);
+  }
+
   function chapterMatches(ch, q) {
     if (!q) return true;
     return (
@@ -128,6 +163,9 @@
         '">' +
         '<button type="button" class="chapter-nav__toggle" aria-expanded="' +
         expanded +
+        '" aria-label="Part ' +
+        meta.num +
+        (expanded ? " 접기" : " 펼치기") +
         '" data-part="' +
         meta.num +
         '">' +
@@ -214,11 +252,8 @@
     var toggle = ev.target.closest(".chapter-nav__toggle");
     if (toggle) {
       ev.preventDefault();
-      var part = parseInt(toggle.getAttribute("data-part"), 10);
-      if (collapsedParts.has(part)) collapsedParts.delete(part);
-      else collapsedParts.add(part);
-      saveCollapsedParts();
-      renderNav(searchInput.value);
+      ev.stopPropagation();
+      togglePart(parseInt(toggle.getAttribute("data-part"), 10));
       return;
     }
     var link = ev.target.closest(".chapter-link");
@@ -247,6 +282,14 @@
 
   document.getElementById("btn-menu").addEventListener("click", function () {
     document.body.classList.toggle("sidebar-hidden");
+  });
+
+  document.getElementById("btn-toc-collapse-all").addEventListener("click", function () {
+    collapseAllParts();
+  });
+
+  document.getElementById("btn-toc-expand-all").addEventListener("click", function () {
+    expandAllParts();
   });
 
   searchInput.addEventListener("input", function () {
