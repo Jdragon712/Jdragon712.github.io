@@ -51,15 +51,17 @@
   }
 
   function renderHero(profile, links) {
-    var name = document.getElementById("hero-name");
     var tagline = document.getElementById("hero-tagline");
     var bio = document.getElementById("hero-bio");
-    var avatar = document.getElementById("hero-avatar");
-    if (name) name.textContent = profile.name;
+    var mark = document.getElementById("hero-mark");
+    var brand = profile.brand || "JD";
     if (tagline) tagline.textContent = profile.tagline;
     if (bio) bio.textContent = profile.bio;
-    if (avatar) avatar.textContent = profile.name.slice(0, 2).toUpperCase();
-    document.title = profile.name + " — AI 네이티브 빌더";
+    if (mark) {
+      mark.textContent = brand;
+      mark.setAttribute("aria-label", brand);
+    }
+    document.title = profile.pageTitle || "AI 네이티브 빌더";
 
     renderHeroActions(links);
   }
@@ -137,7 +139,7 @@
   function renderFooter(profile, links) {
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
-    if (copy) copy.textContent = "© " + profile.name + " · 업데이트 " + profile.updated;
+    if (copy) copy.textContent = "© " + (profile.brand || "JD") + " · 업데이트 " + profile.updated;
     if (!footLinks) return;
     footLinks.innerHTML = "";
     links.forEach(function (link) {
