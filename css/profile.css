@@ -243,40 +243,6 @@ a:hover {
   line-height: 1.65;
 }
 
-.hero__highlights {
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-  max-width: 56ch;
-}
-
-.hero__highlights[hidden] {
-  display: none;
-}
-
-.hero__highlight {
-  position: relative;
-  padding-left: 1rem;
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--ink);
-  line-height: 1.5;
-}
-
-.hero__highlight::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -315,6 +281,13 @@ a:hover {
   background: #000;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   transform: translateY(-1px);
+}
+
+.hero__btn--icon {
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
 }
 
 .hero__btn--ghost {

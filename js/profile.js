@@ -61,20 +61,7 @@
     if (avatar) avatar.textContent = profile.name.slice(0, 2).toUpperCase();
     document.title = profile.name + " — AI 네이티브 빌더";
 
-    renderHighlights(profile.highlights || []);
     renderHeroActions(links);
-  }
-
-  function renderHighlights(items) {
-    var list = document.getElementById("hero-highlights");
-    if (!list) return;
-    list.innerHTML = "";
-    items.forEach(function (text) {
-      var li = el("li", { className: "hero__highlight" });
-      li.textContent = text;
-      list.appendChild(li);
-    });
-    list.hidden = !items.length;
   }
 
   function renderHeroActions(links) {
@@ -87,12 +74,13 @@
 
     if (xLink) {
       var xBtn = el("a", {
-        className: "hero__btn hero__btn--x",
+        className: "hero__btn hero__btn--x hero__btn--icon",
         href: xLink.href,
         target: "_blank",
         rel: "noopener noreferrer",
+        "aria-label": xLink.label,
       });
-      xBtn.innerHTML = ICONS.x + "<span>" + escapeHtml(xLink.handle || xLink.label) + "</span>";
+      xBtn.innerHTML = ICONS.x;
       wrap.appendChild(xBtn);
     }
 
@@ -159,7 +147,7 @@
           href: link.href,
           target: "_blank",
           rel: "noopener noreferrer",
-        }, link.handle || link.label)
+        }, link.label)
       );
     });
   }
