@@ -52,23 +52,21 @@
 
   function buildBrandWordmark(brand) {
     var wrap = el("span", { className: "brand-logo__wordmark" });
-    var tail = brand.slice(1);
-    var parts = tail.match(/^([A-Za-z]+)(\d+)$/);
-
-    wrap.appendChild(el("span", { className: "brand-logo__lead" }, brand.charAt(0)));
+    var parts = brand.match(/^([A-Z])([A-Za-z]+)(\d+)$/);
 
     if (parts) {
-      wrap.appendChild(el("span", { className: "brand-logo__stem" }, parts[1]));
-      wrap.appendChild(el("span", { className: "brand-logo__num" }, parts[2]));
+      wrap.appendChild(el("span", { className: "brand-logo__lead" }, parts[1]));
+      wrap.appendChild(el("span", { className: "brand-logo__stem" }, parts[2]));
+      wrap.appendChild(el("span", { className: "brand-logo__num" }, parts[3]));
     } else {
-      wrap.appendChild(document.createTextNode(tail));
+      wrap.textContent = brand;
     }
 
     return wrap;
   }
 
   function renderBrandMarks(profile) {
-    var brand = profile.brand || "Jdragon712";
+    var brand = profile.brand || "JDragon712";
     ["hero-mark", "nav-mark"].forEach(function (id) {
       var node = document.getElementById(id);
       if (!node) return;
@@ -161,7 +159,7 @@
   function renderFooter(profile, links) {
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
-    if (copy) copy.textContent = "© " + (profile.brand || "Jdragon712") + " · 업데이트 " + profile.updated;
+    if (copy) copy.textContent = "© " + (profile.brand || "JDragon712") + " · 업데이트 " + profile.updated;
     if (!footLinks) return;
     footLinks.innerHTML = "";
     links.forEach(function (link) {
