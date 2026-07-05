@@ -189,37 +189,6 @@ body.toc-open .drawer-edge-btn:hover {
   transform: translate(-2px, -50%);
 }
 
-.toc-bar-toggle {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  margin: 0 0 0 auto;
-  padding: 0;
-  border: 1px solid rgba(0, 113, 227, 0.2);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--accent);
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.1);
-  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.toc-bar-toggle:hover {
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.16);
-}
-
-.toc-bar-toggle:active {
-  transform: scale(0.96);
-}
-
 .btn-toc-open {
   flex-shrink: 0;
   display: inline-flex;
@@ -333,8 +302,8 @@ body.toc-open .drawer-edge-btn:hover {
 
 .sidebar__toc-head {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 0.65rem;
 }
 

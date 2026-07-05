@@ -111,7 +111,6 @@
     var toggle = document.getElementById("btn-toc-edge");
     var icon = document.getElementById("toc-edge-icon");
     var openBtn = document.getElementById("btn-toc-open");
-    var collapseBtn = document.getElementById("btn-toc-collapse");
     if (!drawer) return;
     drawer.classList.toggle("open", open);
     drawer.setAttribute("aria-hidden", open ? "false" : "true");
@@ -124,7 +123,6 @@
     }
     if (icon) icon.textContent = open ? "‹" : "›";
     if (openBtn) openBtn.hidden = open;
-    if (collapseBtn) collapseBtn.hidden = !open;
     requestAnimationFrame(syncDrawerEdge);
   }
 
@@ -301,7 +299,6 @@
   });
 
   document.getElementById("btn-toc-edge").addEventListener("click", toggleTocPanel);
-  document.getElementById("btn-toc-collapse").addEventListener("click", closeTocPanel);
   document.getElementById("btn-toc-open").addEventListener("click", openTocPanel);
   document.getElementById("sidebar-backdrop").addEventListener("click", closeTocPanel);
   window.addEventListener("resize", syncDrawerEdge);
