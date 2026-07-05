@@ -37,10 +37,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-anchor: none;
 }
 
 body {
   margin: 0;
+  overflow-anchor: none;
   font-family: var(--font);
   font-size: var(--text-base);
   color: var(--ink);

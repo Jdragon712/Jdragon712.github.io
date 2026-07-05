@@ -171,6 +171,14 @@
       .replace(/"/g, "&quot;");
   }
 
+  function scrollToTopUnlessHash() {
+    if (window.location.hash) return;
+    window.scrollTo(0, 0);
+    requestAnimationFrame(function () {
+      window.scrollTo(0, 0);
+    });
+  }
+
   function init(data) {
     renderNav(data.links);
     renderHero(data.profile);
@@ -179,6 +187,7 @@
     renderCapabilities(data.capabilities);
     renderWorkflow(data.workflow);
     renderFooter(data.profile, data.links);
+    scrollToTopUnlessHash();
   }
 
   fetch("data/profile.json")

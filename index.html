@@ -15,11 +15,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/profile.css" />
-  <script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9196941060199524"
-    crossorigin="anonymous"
-  ></script>
+  <script>
+    (function () {
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      if (!location.hash) window.scrollTo(0, 0);
+      window.addEventListener("pageshow", function () {
+        if (!location.hash) window.scrollTo(0, 0);
+      });
+    })();
+  </script>
 </head>
 <body>
   <header class="nav">
@@ -82,5 +86,10 @@
   </main>
 
   <script src="js/profile.js"></script>
+  <script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9196941060199524"
+    crossorigin="anonymous"
+  ></script>
 </body>
 </html>
