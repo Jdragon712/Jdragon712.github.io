@@ -1,58 +1,19 @@
 {
   "profile": {
     "name": "Jdragon712",
-    "tagline": "AI 협업으로 아이디어를 서비스까지",
-    "bio": "Grok·Hermes 에이전트와 함께 데이터 파이프라인, 웹 서비스, 학습 교재, 자동화를 설계하고 배포합니다. 공개 데이터로 실용적인 도구를 만들고, 과정을 문서화해 누구나 따라 할 수 있게 남깁니다.",
+    "tagline": "공공 데이터와 AI 협업으로, 아이디어를 운영 가능한 서비스까지",
+    "bio": "공개 데이터를 수집·정제해 실사용 가능한 웹 서비스로 만들고, 구현 과정을 누구나 따라 할 수 있는 학습 교재로 문서화합니다. Grok·Hermes AI 에이전트와 MCP를 일상 워크플로에 통합해 설계·개발·배포를 한 흐름으로 완성하는 것이 전문 영역입니다.",
+    "highlights": [
+      "공개 데이터 ETL → 지도·검색 UI → GitHub Pages 배포",
+      "AI 에이전트 협업 · MCP · 스케줄 자동화",
+      "프로젝트 기반 학습 교재 · Apple HIG · 보안 정적 웹"
+    ],
     "updated": "2026-07-06",
-    "version": 1
+    "version": 2
   },
   "links": [
     { "label": "GitHub", "href": "https://github.com/Jdragon712", "icon": "github" },
-    { "label": "X", "href": "https://x.com/monbyjdragon92", "icon": "x" }
-  ],
-  "metrics": [
-    { "value": "2", "label": "공개 서비스" },
-    { "value": "52", "label": "학습 장" },
-    { "value": "14", "label": "인터랙티브 데모" },
-    { "value": "90+", "label": "MCP 도구 연동" }
-  ],
-  "capabilities": [
-    {
-      "title": "AI 에이전트 워크플로",
-      "description": "Grok CLI·Hermes 게이트웨이로 코딩, 조사, 문서·이미지 생성을 한 흐름으로 연결합니다.",
-      "tags": ["Grok", "Hermes", "Telegram", "크론"]
-    },
-    {
-      "title": "데이터 → 서비스",
-      "description": "공개 API·CSV 수집, ETL 정제, 지도·검색 UI까지 엔드투엔드로 구축합니다.",
-      "tags": ["ETL", "Python", "Leaflet", "정적 웹"]
-    },
-    {
-      "title": "학습 교재 제작",
-      "description": "실제 프로젝트를 5 Part·52장 교재로 구조화하고, 직접해보기 데모를 포함합니다.",
-      "tags": ["Apple HIG", "52장", "CSP", "GitHub Pages"]
-    },
-    {
-      "title": "MCP·자동화",
-      "description": "GitHub·Notion·Canva MCP와 스케줄 작업으로 배포·브리핑·게시를 자동화합니다.",
-      "tags": ["GitHub MCP", "Notion", "Canva", "ETH 브리핑"]
-    },
-    {
-      "title": "문서·디자인 산출",
-      "description": "Word·PPT·Excel, 인포그래픽, 슬라이드 등 업무용 산출물을 AI와 함께 완성합니다.",
-      "tags": ["docx", "pptx", "xlsx", "인포그래픽"]
-    },
-    {
-      "title": "지식 베이스",
-      "description": "Gemini·NotebookLM 백업 20개 노트북을 검색 가능한 내부 지식으로 운영합니다.",
-      "tags": ["제미나이기억", "NotebookLM", "검색 스크립트"]
-    }
-  ],
-  "workflow": [
-    { "step": "01", "title": "아이디어·데이터", "text": "공개 데이터와 실제 문제를 정의하고, AI와 함께 범위를 좁힙니다." },
-    { "step": "02", "title": "구현·검증", "text": "에이전트가 코드·ETL·UI를 작성하고, 로컬에서 바로 실행해 검증합니다." },
-    { "step": "03", "title": "문서·교재화", "text": "만든 과정을 장 단위 학습 자료로 정리해 재현 가능하게 남깁니다." },
-    { "step": "04", "title": "배포·운영", "text": "보안 점검 후 GitHub Pages에 공개하고, 이 허브에 프로젝트를 추가합니다." }
+    { "label": "X", "href": "https://x.com/monbyjdragon92", "icon": "x", "handle": "@monbyjdragon92" }
   ],
   "projects": [
     {

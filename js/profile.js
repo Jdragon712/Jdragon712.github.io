@@ -22,16 +22,20 @@
     return node;
   }
 
+  function findLink(links, icon) {
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].icon === icon) return links[i];
+    }
+    return null;
+  }
+
   function renderNav(links) {
     var navLinks = document.getElementById("nav-links");
     if (!navLinks) return;
 
-    ["projects", "capabilities", "workflow"].forEach(function (id) {
-      var labels = { projects: "프로젝트", capabilities: "역량", workflow: "워크플로" };
-      navLinks.appendChild(
-        el("a", { className: "nav__link nav__link--text", href: "#" + id }, labels[id])
-      );
-    });
+    navLinks.appendChild(
+      el("a", { className: "nav__link nav__link--text", href: "#projects" }, "프로젝트")
+    );
 
     links.forEach(function (link) {
       var a = el("a", {
@@ -46,7 +50,7 @@
     });
   }
 
-  function renderHero(profile) {
+  function renderHero(profile, links) {
     var name = document.getElementById("hero-name");
     var tagline = document.getElementById("hero-tagline");
     var bio = document.getElementById("hero-bio");
@@ -56,20 +60,52 @@
     if (bio) bio.textContent = profile.bio;
     if (avatar) avatar.textContent = profile.name.slice(0, 2).toUpperCase();
     document.title = profile.name + " — AI 네이티브 빌더";
+
+    renderHighlights(profile.highlights || []);
+    renderHeroActions(links);
   }
 
-  function renderMetrics(metrics) {
-    var grid = document.getElementById("metrics");
-    if (!grid) return;
-    grid.innerHTML = "";
-    metrics.forEach(function (m) {
-      grid.appendChild(
-        el("div", { className: "metric" }, [
-          el("span", { className: "metric__value" }, m.value),
-          el("span", { className: "metric__label" }, m.label),
-        ].map(function (c) { return c.outerHTML; }).join(""))
-      );
+  function renderHighlights(items) {
+    var list = document.getElementById("hero-highlights");
+    if (!list) return;
+    list.innerHTML = "";
+    items.forEach(function (text) {
+      var li = el("li", { className: "hero__highlight" });
+      li.textContent = text;
+      list.appendChild(li);
     });
+    list.hidden = !items.length;
+  }
+
+  function renderHeroActions(links) {
+    var wrap = document.getElementById("hero-actions");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+
+    var xLink = findLink(links, "x");
+    var ghLink = findLink(links, "github");
+
+    if (xLink) {
+      var xBtn = el("a", {
+        className: "hero__btn hero__btn--x",
+        href: xLink.href,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      });
+      xBtn.innerHTML = ICONS.x + "<span>" + escapeHtml(xLink.handle || xLink.label) + "</span>";
+      wrap.appendChild(xBtn);
+    }
+
+    if (ghLink) {
+      var ghBtn = el("a", {
+        className: "hero__btn hero__btn--ghost",
+        href: ghLink.href,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      });
+      ghBtn.innerHTML = ICONS.github + "<span>GitHub</span>";
+      wrap.appendChild(ghBtn);
+    }
   }
 
   function renderProjects(projects) {
@@ -110,41 +146,6 @@
     });
   }
 
-  function renderCapabilities(caps) {
-    var grid = document.getElementById("capabilities");
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    caps.forEach(function (c) {
-      var card = el("div", { className: "cap-card" });
-      card.innerHTML =
-        "<h3 class=\"cap-card__title\">" + escapeHtml(c.title) + "</h3>" +
-        "<p class=\"cap-card__desc\">" + escapeHtml(c.description) + "</p>" +
-        '<div class="cap-card__tags">' +
-        c.tags.map(function (t) {
-          return '<span class="cap-card__tag">' + escapeHtml(t) + "</span>";
-        }).join("") +
-        "</div>";
-      grid.appendChild(card);
-    });
-  }
-
-  function renderWorkflow(steps) {
-    var grid = document.getElementById("workflow");
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    steps.forEach(function (s) {
-      grid.appendChild(
-        el("div", { className: "workflow-step" }, [
-          el("span", { className: "workflow-step__num" }, s.step),
-          el("h3", { className: "workflow-step__title" }, s.title),
-          el("p", { className: "workflow-step__text" }, s.text),
-        ].map(function (c) { return c.outerHTML; }).join(""))
-      );
-    });
-  }
-
   function renderFooter(profile, links) {
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
@@ -158,7 +159,7 @@
           href: link.href,
           target: "_blank",
           rel: "noopener noreferrer",
-        }, link.label)
+        }, link.handle || link.label)
       );
     });
   }
@@ -181,11 +182,8 @@
 
   function init(data) {
     renderNav(data.links);
-    renderHero(data.profile);
-    renderMetrics(data.metrics);
+    renderHero(data.profile, data.links);
     renderProjects(data.projects);
-    renderCapabilities(data.capabilities);
-    renderWorkflow(data.workflow);
     renderFooter(data.profile, data.links);
     scrollToTopUnlessHash();
   }
