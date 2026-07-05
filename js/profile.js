@@ -50,19 +50,41 @@
     });
   }
 
+  function buildBrandWordmark(brand) {
+    var wrap = el("span", { className: "brand-logo__wordmark" });
+    var tail = brand.slice(1);
+    var parts = tail.match(/^([A-Za-z]+)(\d+)$/);
+
+    wrap.appendChild(el("span", { className: "brand-logo__lead" }, brand.charAt(0)));
+
+    if (parts) {
+      wrap.appendChild(el("span", { className: "brand-logo__stem" }, parts[1]));
+      wrap.appendChild(el("span", { className: "brand-logo__num" }, parts[2]));
+    } else {
+      wrap.appendChild(document.createTextNode(tail));
+    }
+
+    return wrap;
+  }
+
+  function renderBrandMarks(profile) {
+    var brand = profile.brand || "Jdragon712";
+    ["hero-mark", "nav-mark"].forEach(function (id) {
+      var node = document.getElementById(id);
+      if (!node) return;
+      node.innerHTML = "";
+      node.appendChild(buildBrandWordmark(brand));
+      node.setAttribute("aria-label", brand);
+    });
+    document.title = profile.pageTitle || brand + " — AI 네이티브 빌더";
+  }
+
   function renderHero(profile, links) {
     var tagline = document.getElementById("hero-tagline");
     var bio = document.getElementById("hero-bio");
-    var mark = document.getElementById("hero-mark");
-    var brand = profile.brand || "JD";
     if (tagline) tagline.textContent = profile.tagline;
     if (bio) bio.textContent = profile.bio;
-    if (mark) {
-      mark.textContent = brand;
-      mark.setAttribute("aria-label", brand);
-    }
-    document.title = profile.pageTitle || "AI 네이티브 빌더";
-
+    renderBrandMarks(profile);
     renderHeroActions(links);
   }
 
@@ -139,7 +161,7 @@
   function renderFooter(profile, links) {
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
-    if (copy) copy.textContent = "© " + (profile.brand || "JD") + " · 업데이트 " + profile.updated;
+    if (copy) copy.textContent = "© " + (profile.brand || "Jdragon712") + " · 업데이트 " + profile.updated;
     if (!footLinks) return;
     footLinks.innerHTML = "";
     links.forEach(function (link) {
