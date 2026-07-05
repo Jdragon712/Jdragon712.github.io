@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="color-scheme" content="light" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+  />
+  <title>세종 단골 식당 지도 — 상세 학습 교재</title>
+  <script src="js/base-path.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/study.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__head">
+        <a class="sidebar__home" href="../t/">← 강의 슬라이드</a>
+        <h1 class="sidebar__title">단골 식당 지도<br />개발 가이드</h1>
+        <p class="sidebar__sub">프로젝트 기반 학습 교재</p>
+      </div>
+      <div class="sidebar__toc-bar">
+        <span class="sidebar__toc-label">목차</span>
+        <span class="sidebar__toc-meta">5 Part · 52장</span>
+      </div>
+      <nav id="chapter-nav" class="chapter-nav" aria-label="목차"></nav>
+      <div class="sidebar__foot">
+        <div class="progress-wrap">
+          <span id="progress-label">진행 0%</span>
+          <div class="progress-bar"><div id="progress-fill" class="progress-bar__fill"></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="study-top">
+        <button type="button" id="btn-menu" class="btn-menu" aria-label="목차">☰</button>
+        <input type="search" id="search-input" class="search-input" placeholder="교재 내 검색 (제목·키워드)" />
+        <a class="btn-outline" href="https://jdragon712.github.io/sejong-official-restaurant-map/" target="_blank" rel="noopener noreferrer">완성 지도 ↗</a>
+      </header>
+
+      <main id="study-content" class="study-content"></main>
+
+      <footer class="study-foot">
+        <button type="button" id="btn-prev" class="btn-nav">← 이전 장</button>
+        <button type="button" id="btn-mark" class="btn-mark">읽음 표시</button>
+        <button type="button" id="btn-next" class="btn-nav btn-nav--primary">다음 장 →</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="js/study-templates.js"></script>
+  <script src="js/study-demos.js"></script>
+  <script src="js/chapters-expanded-1.js"></script>
+  <script src="js/chapters-expanded-2.js"></script>
+  <script src="js/chapters-expanded-3.js"></script>
+  <script src="js/chapters-expanded-4.js"></script>
+  <script src="js/chapters-expanded-5.js"></script>
+  <script src="js/study-app.js"></script>
+</body>
+</html>

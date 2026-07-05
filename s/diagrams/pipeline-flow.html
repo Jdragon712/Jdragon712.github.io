@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>파이프라인 터미널 예시</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #1e1e1e;
+      font-family: "JetBrains Mono", "Menlo", monospace;
+      font-size: 13px;
+      color: #d4d4d4;
+      padding: 20px;
+    }
+    .title { color: #9cdcfe; margin-bottom: 12px; }
+    .line { margin: 4px 0; white-space: pre-wrap; }
+    .prompt { color: #4ec9b0; }
+    .arrow { color: #569cd6; }
+    .ok { color: #6a9955; }
+    .step { color: #dcdcaa; }
+  </style>
+</head>
+<body>
+  <div class="title">~/Desktop/헤르메스 비서/부업/맛집앱 — run_pipeline.sh</div>
+  <div class="line"><span class="prompt">$</span> bash ~/hermes-restaurant-parse.sh</div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[1/8] 09:14:02 인허가 POI</span></div>
+  <div class="line"><span class="ok">{"imported": 8421, "sources": ["일반음식점", "휴게음식점"]}</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[2/8] 09:16:41 업추비 정규화</span></div>
+  <div class="line"><span class="ok">{"line_items": 22667, "files_parsed": 184}</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[3/8] 09:17:05 방문 집계</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[4/8] 09:17:22 상호 매칭</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[5/8] 09:18:01 공개 JSON</span></div>
+  <div class="line"><span class="ok">{"record_count": 2525, "data_as_of": "2026-05-31"}</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[6/8] 09:22:15 지오코딩</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[7/8] 09:24:00 web 동기화</span></div>
+  <div class="line"><span class="ok">copied restaurants.map.json</span></div>
+  <div class="line"><span class="arrow">&gt;&gt;&gt;</span> <span class="step">[8/8] 09:24:02 점검</span></div>
+  <div class="line"><span class="ok">=== 파이프라인 완료 ===</span></div>
+</body>
+</html>

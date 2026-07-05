@@ -1,0 +1,3 @@
+# 정적 학습 교재 — 검색 엔진 허용 (비공개 배포 시 Disallow: / 로 변경)
+User-agent: *
+Allow: /

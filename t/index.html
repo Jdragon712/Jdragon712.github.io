@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>세종 단골 식당 지도 — 프로젝트 강의</title>
+  <script>
+    (function () {
+      var p = location.pathname || "/";
+      if (/\.html?$/i.test(p)) p = p.slice(0, p.lastIndexOf("/") + 1);
+      else if (!/\/$/.test(p)) p += "/";
+      var b = document.createElement("base");
+      b.href = p;
+      document.head.appendChild(b);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/tutorial.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <div class="top-bar__brand">
+      <span class="top-bar__emoji" aria-hidden="true">🗺️</span>
+      <span class="top-bar__title">세종 단골 식당 지도 · 프로젝트 강의</span>
+    </div>
+    <div class="top-bar__meta">
+      <span class="audience-badge">고학년 + 학부모</span>
+      <span id="slide-counter" class="slide-counter">1 / 14</span>
+    </div>
+  </header>
+
+  <div class="journey-bar" aria-hidden="true">
+    <div id="journey-fill" class="journey-bar__fill"></div>
+  </div>
+
+  <main class="deck">
+    <div class="swiper" id="deck-swiper">
+      <div class="swiper-wrapper" id="slides-root"></div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev" aria-label="이전 장"></div>
+      <div class="swiper-button-next" aria-label="다음 장"></div>
+    </div>
+  </main>
+
+  <aside id="presenter-panel" class="presenter-panel" hidden>
+    <div class="presenter-panel__head">
+      <strong>발표자 노트</strong>
+      <button type="button" id="presenter-close" class="btn-ghost">닫기 (P)</button>
+    </div>
+    <p id="presenter-text" class="presenter-panel__text"></p>
+  </aside>
+
+  <footer class="bottom-bar">
+    <a class="btn-ghost" href="study/index.html" style="text-decoration:none;display:inline-flex;align-items:center">📚 상세 학습 교재</a>
+    <button type="button" id="btn-presenter" class="btn-ghost" title="발표자 노트 (P)">발표자 노트 P</button>
+    <button type="button" id="btn-reset" class="btn-ghost">처음부터</button>
+    <span class="hint">← → 또는 스와이프 · 전체화면 F11</span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/slides-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
