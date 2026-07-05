@@ -96,28 +96,33 @@
     progressLabel.textContent = "진행 " + pct + "% (" + doneSet.size + "/" + chapters.length + "장)";
   }
 
-  function updateTocEdgeLabel() {
-    var btn = document.getElementById("btn-toc-edge");
-    if (!btn) return;
-    var hidden = document.body.classList.contains("sidebar-hidden");
-    btn.textContent = hidden ? ">" : "<";
-    btn.setAttribute("aria-label", hidden ? "목차 열기" : "목차 닫기");
-    btn.setAttribute("title", hidden ? "목차 열기" : "목차 닫기");
+  function setTocOpen(open) {
+    var shell = document.getElementById("study-shell");
+    var drawer = document.getElementById("toc-drawer");
+    var toggle = document.getElementById("btn-toc-edge");
+    var icon = document.getElementById("toc-edge-icon");
+    if (!drawer) return;
+    drawer.classList.toggle("open", open);
+    drawer.setAttribute("aria-hidden", open ? "false" : "true");
+    if (shell) shell.classList.toggle("drawer-open", open);
+    if (toggle) {
+      toggle.setAttribute("aria-label", open ? "목차 닫기" : "목차 열기");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if (icon) icon.textContent = open ? "‹" : "›";
   }
 
   function openTocPanel() {
-    document.body.classList.remove("sidebar-hidden");
-    updateTocEdgeLabel();
+    setTocOpen(true);
   }
 
   function closeTocPanel() {
-    document.body.classList.add("sidebar-hidden");
-    updateTocEdgeLabel();
+    setTocOpen(false);
   }
 
   function toggleTocPanel() {
-    document.body.classList.toggle("sidebar-hidden");
-    updateTocEdgeLabel();
+    var drawer = document.getElementById("toc-drawer");
+    setTocOpen(!(drawer && drawer.classList.contains("open")));
   }
 
   function closeTocPanelIfMobile() {
@@ -176,9 +181,7 @@
         items.length +
         (q ? "개" : "장") +
         "</span>" +
-        '<span class="chapter-nav__sym" aria-hidden="true">' +
-        (expanded ? "∨" : ">") +
-        "</span>" +
+        '<span class="chapter-nav__chevron" aria-hidden="true"></span>' +
         "</button>" +
         '<div class="chapter-nav__items">';
 
@@ -295,7 +298,7 @@
     if (ev.key === "ArrowRight" && currentIndex < chapters.length - 1) renderChapter(currentIndex + 1);
   });
 
-  updateTocEdgeLabel();
+  setTocOpen(true);
   renderNav();
   renderChapter(currentIndex);
 })();

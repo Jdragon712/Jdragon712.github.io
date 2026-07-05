@@ -18,36 +18,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/study.css?v=20260711" />
+  <link rel="stylesheet" href="css/study.css?v=20260712" />
 </head>
 <body>
-  <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
   <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar__panel">
-        <div class="sidebar__head">
-          <div class="sidebar__head-row">
-            <a class="sidebar__home" href="https://jdragon712.github.io/sejong-official-restaurant-map/" target="_blank" rel="noopener noreferrer">← 완성 지도</a>
+    <div class="study-shell drawer-open" id="study-shell">
+      <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+      <aside id="toc-drawer" class="toc-drawer open" aria-hidden="false">
+        <div class="toc-drawer-panel">
+          <div class="sidebar__head">
+            <div class="sidebar__head-row">
+              <a class="sidebar__home" href="https://jdragon712.github.io/sejong-official-restaurant-map/" target="_blank" rel="noopener noreferrer">← 완성 지도</a>
+            </div>
+            <h1 class="sidebar__title">단골 식당 지도<br />개발 가이드</h1>
+            <p class="sidebar__sub">프로젝트 기반 학습 교재</p>
           </div>
-          <h1 class="sidebar__title">단골 식당 지도<br />개발 가이드</h1>
-          <p class="sidebar__sub">프로젝트 기반 학습 교재</p>
-        </div>
-        <div class="sidebar__toc-bar">
-          <div class="sidebar__toc-head">
-            <span class="sidebar__toc-label">목차</span>
-            <span class="sidebar__toc-meta">5 Part · 52장</span>
+          <div class="sidebar__toc-bar">
+            <div class="sidebar__toc-head">
+              <span class="sidebar__toc-label">목차</span>
+              <span class="sidebar__toc-meta">5 Part · 52장</span>
+            </div>
+          </div>
+          <nav id="chapter-nav" class="chapter-nav" aria-label="목차"></nav>
+          <div class="sidebar__foot">
+            <div class="progress-wrap">
+              <span id="progress-label">진행 0%</span>
+              <div class="progress-bar"><div id="progress-fill" class="progress-bar__fill"></div></div>
+            </div>
           </div>
         </div>
-        <nav id="chapter-nav" class="chapter-nav" aria-label="목차"></nav>
-        <div class="sidebar__foot">
-          <div class="progress-wrap">
-            <span id="progress-label">진행 0%</span>
-            <div class="progress-bar"><div id="progress-fill" class="progress-bar__fill"></div></div>
-          </div>
-        </div>
-      </div>
-      <button type="button" id="btn-toc-edge" class="sidebar__edge sym-btn" aria-label="목차 닫기" title="목차">&lt;</button>
-    </aside>
+      </aside>
+      <button type="button" id="btn-toc-edge" class="drawer-edge-btn" aria-label="목차 닫기" aria-controls="toc-drawer" aria-expanded="true">
+        <span id="toc-edge-icon" aria-hidden="true">‹</span>
+      </button>
 
     <div class="main-wrap">
       <header class="study-top">
@@ -63,6 +66,7 @@
         <button type="button" id="btn-next" class="btn-nav btn-nav--primary">다음 장 →</button>
       </footer>
     </div>
+    </div>
   </div>
 
   <script src="js/study-templates.js?v=20260710"></script>
@@ -72,6 +76,6 @@
   <script src="js/chapters-expanded-3.js?v=20260710"></script>
   <script src="js/chapters-expanded-4.js?v=20260710"></script>
   <script src="js/chapters-expanded-5.js?v=20260710"></script>
-  <script src="js/study-app.js?v=20260711"></script>
+  <script src="js/study-app.js?v=20260712"></script>
 </body>
 </html>
