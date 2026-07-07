@@ -33,21 +33,16 @@
     var navLinks = document.getElementById("nav-links");
     if (!navLinks) return;
 
-    navLinks.appendChild(
-      el("a", { className: "nav__link nav__link--text", href: "#projects" }, "프로젝트")
-    );
-
-    links.forEach(function (link) {
-      var a = el("a", {
-        className: "nav__icon-link",
-        href: link.href,
-        target: "_blank",
-        rel: "noopener noreferrer",
-        "aria-label": link.label,
-      });
-      a.innerHTML = ICONS[link.icon] || link.label;
-      navLinks.appendChild(a);
+    // AI 네이티브 빌더 pill instead of "프로젝트" text
+    var ai = el("a", {
+      className: "nav__ai-pill",
+      href: "#projects",
+      "aria-label": "AI 네이티브 빌더"
     });
+    ai.innerHTML = '<span class="nav__ai-dot"></span>AI 네이티브 빌더';
+    navLinks.appendChild(ai);
+
+    // no social icons since links removed
   }
 
   function buildBrandWordmark(brand) {

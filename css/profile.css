@@ -144,6 +144,52 @@ a:hover {
   fill: currentColor;
 }
 
+/* One-line header: large brand left + AI pill replacing 프로젝트 */
+.nav {
+  height: 56px;
+}
+
+.nav__inner {
+  justify-content: space-between;
+}
+
+.nav__brand .brand-logo--hero {
+  padding: 0.55rem 1.1rem;
+  min-height: 36px;
+}
+
+.nav__brand .brand-logo--hero .brand-logo__wordmark {
+  font-size: 0.95rem;
+}
+
+.nav__ai-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.nav__ai-pill:hover {
+  background: rgba(0, 113, 227, 0.15);
+  transform: translateY(-1px);
+}
+
+.nav__ai-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex-shrink: 0;
+}
+
 /* ── Layout ── */
 
 .page {
@@ -188,29 +234,11 @@ a:hover {
 /* ── Hero ── */
 
 .hero {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-areas:
-    "badge logo"
-    "main logo";
-  gap: 0 2rem;
-  align-items: start;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-.hero__aside {
-  grid-area: logo;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.hero__badge {
-  grid-area: badge;
-}
-
 .hero__content {
-  grid-area: main;
+  max-width: 56ch;
 }
 
 .hero__badge {
