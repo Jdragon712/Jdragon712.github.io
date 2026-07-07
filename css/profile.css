@@ -251,6 +251,21 @@ a:hover {
   gap: 1rem;
 }
 
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .hero__visual {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+  .preview-card {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 .hero__badge {
   display: inline-flex;
   align-items: center;
