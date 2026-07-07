@@ -15,7 +15,12 @@
       "category": "서비스",
       "title": "세종 공직자 단골 식당 지도",
       "description": "공개 업무추진비 데이터를 ETL로 정제해 방문 횟수 기준 단골 식당을 지도에서 탐색합니다. 실제 운영 중인 공개 데이터 활용 서비스입니다.",
-      "tags": ["ETL", "Leaflet", "공개데이터", "GitHub Pages"],
+      "tags": [
+        "ETL",
+        "Leaflet",
+        "공개데이터",
+        "GitHub Pages"
+      ],
       "href": "/sejong-official-restaurant-map/",
       "external": false,
       "featured": true,
@@ -27,7 +32,12 @@
       "category": "학습",
       "title": "단골 식당 지도 개발 학습교재",
       "description": "공개 데이터로 실제 서비스를 구축하는 전 과정을 다루는 프로젝트 기반 학습교재입니다. 5 Part · 52장. Naver Map 중심 파이프라인·웹·배포·소스 해설과 Kakao vs Naver 비교, 선택 이유를 포함합니다. 14개의 인터랙티브 데모를 제공합니다.",
-      "tags": ["52장", "Apple HIG", "14 데모", "CSP"],
+      "tags": [
+        "52장",
+        "Apple HIG",
+        "14 데모",
+        "CSP"
+      ],
       "href": "/s/",
       "external": false,
       "featured": true,
