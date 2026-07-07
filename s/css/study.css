@@ -690,33 +690,34 @@ body.toc-open .drawer-edge-btn:hover {
 }
 
 /* On small screens, encourage the table to be wide enough to need scroll */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     width: 100%;
-    /* ensure the scroller is visible and takes full width */
-    display: block;
   }
 
   .table-scroll .study-table {
-    min-width: 650px; /* wide enough for 4-col table like 3계층 구조 */
+    min-width: 650px;
     width: auto;
-    /* preserve table layout while allowing scroll */
     table-layout: auto;
   }
 
-  /* let columns size naturally for scroll */
   .table-scroll .study-table th,
   .table-scroll .study-table td {
     width: auto !important;
     min-width: 0 !important;
   }
 
-  /* Fallback: scroll the body if no wrapper */
+  /* Make the chapter body scrollable on mobile so wide tables can be scrolled horizontally by touch/drag */
   .chapter-doc__body {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  .study-table {
+    min-width: 650px;
+    width: auto;
   }
 }
 
