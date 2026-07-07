@@ -234,51 +234,22 @@ a:hover {
 /* ── Hero ── */
 
 .hero {
-  position: relative;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-  padding-right: 320px; /* leave room for symbol on right */
 }
 
 .hero__content {
-  max-width: 100%; /* spread text left to right, not crammed on left */
+  max-width: 100%; /* full width for long text */
 }
 
 .hero__tagline {
-  max-width: 85ch;
-}
-
-.hero__bio {
   max-width: 90ch;
 }
 
-.hero__visual {
-  position: absolute;
-  right: 0;
-  top: 10%;
-  width: 300px;
-}
-
-.hero-symbol {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-width: 300px;
+.hero__bio {
+  max-width: 95ch;
 }
 
 @media (max-width: 860px) {
-  .hero {
-    padding-right: 0;
-  }
-  .hero__visual {
-    position: static;
-    width: 100%;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-  }
-  .hero-symbol {
-    max-width: 220px;
-  }
   .hero__content,
   .hero__tagline,
   .hero__bio {
