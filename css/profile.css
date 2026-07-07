@@ -262,16 +262,16 @@ a:hover {
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 82%;
-  /* spread text across, not crammed left */
+  max-width: 92%;
+  /* spread text across the full width, not crammed left */
 }
 
 .hero__tagline {
-  max-width: 72ch; /* allow longer lines */
+  max-width: 85ch; /* longer lines */
 }
 
 .hero__bio {
-  max-width: 78ch; /* spread the subtitle/bio */
+  max-width: 90ch; /* spread the subtitle/bio */
 }
 
 @media (max-width: 860px) {
