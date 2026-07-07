@@ -37,9 +37,54 @@
 
   <main class="page">
     <section class="hero" aria-labelledby="hero-tagline">
-      <div class="hero__content">
+      <div class="hero__text">
         <p class="hero__tagline" id="hero-tagline"></p>
         <p class="hero__bio" id="hero-bio"></p>
+      </div>
+
+      <div class="hero__visual" aria-label="배포 중인 공개 프로젝트 미리보기">
+        <!-- Project 1: Sejong Restaurant Map -->
+        <a href="/sejong-official-restaurant-map/" class="preview-card preview-map" target="_blank" rel="noopener">
+          <div class="preview-header">
+            <span class="preview-dot"></span>
+            <span class="preview-title">세종 단골 식당 지도</span>
+            <span class="preview-status">LIVE</span>
+          </div>
+          <div class="mini-map">
+            <div class="map-bg"></div>
+            <div class="map-pin" style="top:25%;left:30%"></div>
+            <div class="map-pin" style="top:40%;left:55%"></div>
+            <div class="map-pin" style="top:60%;left:25%"></div>
+            <div class="map-pin active" style="top:48%;left:68%"></div>
+            <div class="map-label">공개 데이터 기반</div>
+          </div>
+          <div class="preview-meta">
+            <span class="tag">ETL</span>
+            <span class="tag">Leaflet</span>
+            <span class="tag">GitHub Pages</span>
+          </div>
+        </a>
+
+        <!-- Project 2: Study Guide -->
+        <a href="/s/" class="preview-card preview-guide" target="_blank" rel="noopener">
+          <div class="preview-header">
+            <span class="preview-dot"></span>
+            <span class="preview-title">개발 가이드</span>
+            <span class="preview-status">52장</span>
+          </div>
+          <div class="mini-book">
+            <div class="book-spine"></div>
+            <div class="chapter">01</div>
+            <div class="chapter">14</div>
+            <div class="chapter">52</div>
+            <div class="book-label">Interactive Demos</div>
+          </div>
+          <div class="preview-meta">
+            <span class="tag">Apple HIG</span>
+            <span class="tag">14 Demos</span>
+            <span class="tag">CSP</span>
+          </div>
+        </a>
       </div>
     </section>
 

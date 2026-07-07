@@ -234,11 +234,21 @@ a:hover {
 /* ── Hero ── */
 
 .hero {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 2.5rem;
+  align-items: center;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-.hero__content {
+.hero__text {
   max-width: 56ch;
+}
+
+.hero__visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .hero__badge {
@@ -282,6 +292,160 @@ a:hover {
   color: var(--text-secondary);
   max-width: 54ch;
   line-height: 1.65;
+}
+
+/* Hero right-side project previews */
+.preview-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  overflow: hidden;
+}
+
+.preview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0, 113, 227, 0.2);
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.preview-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex-shrink: 0;
+}
+
+.preview-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: var(--ok-soft);
+  color: #0a7b2e;
+  letter-spacing: 0.02em;
+}
+
+.mini-map {
+  position: relative;
+  height: 78px;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.map-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%);
+}
+
+.map-pin {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: #f44336;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.map-pin.active {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.25);
+}
+
+.map-label {
+  position: absolute;
+  bottom: 4px;
+  left: 6px;
+  font-size: 0.6rem;
+  background: rgba(255,255,255,0.85);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.mini-book {
+  position: relative;
+  height: 78px;
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.book-spine {
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  background: linear-gradient(#0071e3, #34c759);
+  border-radius: 2px;
+}
+
+.mini-book .chapter {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: white;
+  padding: 1px 5px;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.book-label {
+  position: absolute;
+  bottom: 6px;
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.preview-meta {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.preview-meta .tag {
+  font-size: 0.65rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--surface-secondary);
+  color: var(--muted);
+  font-weight: 500;
 }
 
 .hero__actions {
