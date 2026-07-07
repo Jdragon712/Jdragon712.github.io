@@ -669,6 +669,7 @@ body.toc-open .drawer-edge-btn:hover {
 
 .study-table {
   width: 100%;
+  min-width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   font-size: var(--text-base);
@@ -676,7 +677,47 @@ body.toc-open .drawer-edge-btn:hover {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  overflow: hidden;
+  /* allow horizontal scroll via wrapper instead of clipping */
+  overflow: visible;
+}
+
+/* horizontal scroll for wide tables on mobile */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+  border-radius: var(--radius-sm);
+}
+
+/* On small screens, encourage the table to be wide enough to need scroll */
+@media (max-width: 600px) {
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    /* ensure the scroller is visible and takes full width */
+    display: block;
+  }
+
+  .table-scroll .study-table {
+    min-width: 650px; /* wide enough for 4-col table like 3계층 구조 */
+    width: auto;
+    /* preserve table layout while allowing scroll */
+    table-layout: auto;
+  }
+
+  /* let columns size naturally for scroll */
+  .table-scroll .study-table th,
+  .table-scroll .study-table td {
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  /* Fallback: scroll the body if no wrapper */
+  .chapter-doc__body {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .study-table th,
