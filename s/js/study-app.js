@@ -257,6 +257,17 @@
       "</div></article>";
     collapsedParts.delete(ch.moduleNum);
     saveCollapsedParts();
+
+    // Wrap study tables for horizontal scrolling on mobile (user request)
+    content.querySelectorAll('.chapter-doc__body table.study-table').forEach(function (table) {
+      if (table.parentNode && !table.parentNode.classList.contains('table-scroll')) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll';
+        table.parentNode.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+    });
+
     renderNav(searchInput.value);
     updateProgress();
     window.scrollTo(0, 0);
