@@ -26,7 +26,7 @@
       "status": "live",
       "category": "학습",
       "title": "단골 식당 지도 개발 가이드",
-      "description": "5 Part · 52장. 파이프라인부터 웹·배포·소스 해설까지, 14개 인터랙티브 데모가 포함된 프로젝트 기반 교재입니다.",
+      "description": "5 Part · 52장. Naver Map 중심 파이프라인·웹·배포·소스 해설. Kakao vs Naver 비교와 선택 이유 포함. 14개 인터랙티브 데모가 있는 프로젝트 기반 교재입니다.",
       "tags": ["52장", "Apple HIG", "14 데모", "CSP"],
       "href": "/s/",
       "external": false,
