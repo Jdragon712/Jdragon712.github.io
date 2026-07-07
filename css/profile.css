@@ -234,48 +234,50 @@ a:hover {
 /* ── Hero ── */
 
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 2rem;
-  align-items: center;
+  position: relative;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  padding-right: 320px; /* leave room for symbol on right */
 }
 
 .hero__content {
-  max-width: 100%; /* spread text left to right */
+  max-width: 100%; /* spread text left to right, not crammed on left */
 }
 
 .hero__tagline {
-  max-width: 80ch;
-}
-
-.hero__bio {
   max-width: 85ch;
 }
 
+.hero__bio {
+  max-width: 90ch;
+}
+
 .hero__visual {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  position: absolute;
+  right: 0;
+  top: 10%;
+  width: 300px;
 }
 
 .hero-symbol {
   width: 100%;
-  max-width: 340px;
   height: auto;
   display: block;
+  max-width: 300px;
 }
 
 @media (max-width: 860px) {
   .hero {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    padding-right: 0;
   }
   .hero__visual {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
     justify-content: center;
   }
   .hero-symbol {
-    max-width: 280px;
+    max-width: 220px;
   }
   .hero__content,
   .hero__tagline,
