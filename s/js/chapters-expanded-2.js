@@ -2,77 +2,79 @@
 window.STUDY_EXPANDED_2 = [
   {
     id: "e13-kakao-intro",
-    title: "외부 API — Kakao Maps 연동 개요",
-    keywords: "카카오 API geocode REST JS",
-    lead: "주소를 위도·경도로 바꾸는 geocode와 브라우저 지도 표시에 Kakao Developers API를 사용합니다. 서버용 키와 브라우저용 키가 분리되어 있으므로, 각각의 역할과 저장 위치를 먼저 이해해야 합니다.",
+    title: "지도 API 선택 — Kakao Maps vs Naver Map 비교와 Naver 선택 이유",
+    keywords: "카카오 네이버 지도 API 비교 geocode",
+    lead: "공개 데이터 지도 서비스에서 지도 플랫폼 선택은 사용자 경험과 연계 서비스에 큰 영향을 줍니다. 본 프로젝트는 현재 Naver Map을 사용합니다.",
     html:
       STUDY_TMPL.module(2, "데이터 파이프라인", 5) +
       STUDY_TMPL.goal([
-        "REST API 키와 JavaScript 키의 역할을 구분하여 설명할 수 있습니다",
-        "각 키가 저장되는 파일 경로를 연결할 수 있습니다",
-        "geocode와 지도 SDK가 서로 다른 키를 쓰는 이유를 말할 수 있습니다",
+        "Kakao Map과 Naver Map의 주요 차이점을 설명할 수 있습니다",
+        "Naver Map을 선택한 이유(이용자 규모, 예약 연계 등)를 말할 수 있습니다",
+        "지도 SDK와 geocode 키의 역할 구분을 이해할 수 있습니다",
       ]) +
       STUDY_TMPL.prereq([
         "Part 1(12장) — 프로젝트 구조, data/ 레이어, ETL 흐름 개요",
         "bash 명령을 실행할 수 있음",
       ]) +
+      `
+      <h2 class="study-h2">Kakao Maps vs Naver Map 비교</h2>
+      <p class="study-p">두 플랫폼 모두 한국에서 널리 쓰이는 지도 서비스이며, 웹 SDK와 지오코딩 API를 제공합니다. 선택은 서비스 대상 사용자와 연계 가능성에 따라 달라집니다.</p>
+      <table class="study-table">
+        <tr><th>항목</th><th>Kakao Maps</th><th>Naver Map</th></tr>
+        <tr><td>국내 이용자 규모</td><td>높음 (특히 젊은 층·카카오 연계)</td><td>매우 높음 (전 연령, 네이버 포털 연계)</td></tr>
+        <tr><td>예약·장소 연계</td><td>카카오톡·플레이스 연계 강점</td><td>네이버 예약, 네이버 플레이스, 지역 서비스 연계가 풍부</td></tr>
+        <tr><td>지도 타일 품질·POI</td><td>실시간 교통·로컬 POI 강점</td><td>상세 POI, 리뷰·예약 연동, 행정구역 정확도 높음</td></tr>
+        <tr><td>개발자 키·도메인</td><td>REST + JS 키 분리, 도메인 제한</td><td>Client ID (ncpKeyId), 도메인 등록 필요</td></tr>
+        <tr><td>무료 사용 한도</td><td>일/월 쿼터 있음</td><td>일/월 쿼터 있음 (서비스 규모에 따라 유리)</td></tr>
+        <tr><td>공개 데이터 지도 적합성</td><td>좋음</td><td>국내 사용자 많아 추천</td></tr>
+      </table>
+
+      <h2 class="study-h2">Naver Map을 선택한 이유</h2>
+      <p class="study-p">본 프로젝트는 <strong>네이버 지도</strong>를 주 지도 플랫폼으로 사용합니다. 이유:</p>
+      <ul class="study-ul">
+        <li><strong>이용자 규모</strong>: 네이버 포털과 연동되어 전국적으로 이용자가 많습니다. 특히 지역 기반 검색에서 노출이 유리합니다.</li>
+        <li><strong>연계 서비스</strong>: 네이버 예약, 네이버 플레이스 등과 연동 시 이용자가 자연스럽게 유입될 수 있습니다. 단골 식당 정보가 예약으로 이어지는 흐름을 기대할 수 있습니다.</li>
+        <li><strong>POI와 데이터 품질</strong>: 행정구역·상호 데이터가 풍부하고, 공개 데이터와의 매칭이 상대적으로 안정적입니다.</li>
+        <li><strong>웹 SDK</strong>: Naver Maps JavaScript API (ncpKeyId 방식)로 Leaflet과 유사한 방식으로 통합이 가능합니다.</li>
+      </ul>
+      <p class="study-p">Kakao Maps도 훌륭한 선택지이지만, 현재 서비스 타깃과 연계 가능성을 고려해 Naver를 우선했습니다. 필요 시 config에서 preferKakaoMap으로 전환할 수 있는 구조를 유지하고 있습니다.</p>
+      ` +
       STUDY_TMPL.concept(
-        "이중 키 구조 (Dual Key Architecture)",
-        "<p>본 프로젝트는 카카오 API를 <strong>두 가지 방식</strong>으로 사용합니다. 첫째, Python 스크립트 " +
-          STUDY_TMPL.en("geocode_venues.py", "주소→좌표 변환") +
-          "가 서버에서 주소 문자열을 검색해 위도·경도를 얻을 때 " +
-          STUDY_TMPL.en("REST API Key") +
-          "가 필요합니다. 둘째, 브라우저가 카카오 지도 타일·마커를 그릴 때 " +
-          STUDY_TMPL.en("JavaScript Key") +
-          "와 " +
-          STUDY_TMPL.en("SDK", "지도 라이브러리") +
-          "가 필요합니다.</p>" +
-          "<p>두 키는 <strong>서로 교환해서 쓸 수 없습니다</strong>. REST 키는 <code>scripts/.env</code>에, JS 키는 <code>web/js/config.js</code>에 배치됩니다. JS 키가 담긴 <code>config.js</code>는 GitHub Pages 배포 시 공개되므로, 카카오 개발자 콘솔에서 <strong>도메인 제한</strong>을 반드시 설정해야 합니다.</p>"
+        "지도 SDK vs Geocoding",
+        "<p>지도 SDK는 브라우저에서 <strong>타일·마커·줌</strong>을 그리는 역할을 합니다 (Naver Maps JavaScript API). Geocoding은 <strong>주소 → 좌표</strong> 변환으로, 보통 서버(Python)에서 REST API로 호출합니다. 두 기능은 별도 키·인증이 필요할 수 있습니다.</p>"
       ) +
       STUDY_TMPL.glossary([
         [
-          "REST API",
-          "HTTP 요청으로 서버·스크립트가 데이터를 주고받는 방식입니다. 본 프로젝트에서는 Python이 주소 검색 API를 호출할 때 사용합니다.",
+          "Naver Cloud Platform (NCP)",
+          "네이버 지도 API를 사용하기 위한 콘솔. Client ID (ncpKeyId)를 발급받아 사용합니다.",
         ],
         [
-          "JavaScript SDK",
-          "브라우저(Chrome 등) 안에서 실행되는 카카오 지도 라이브러리입니다. 지도 타일·줌·오버레이를 화면에 그립니다.",
+          "ncpKeyId",
+          "Naver Maps JS SDK에서 사용하는 키 파라미터 (?ncpKeyId=...). 도메인 등록이 필요합니다.",
         ],
         [
-          "geocode",
-          "주소 문자열(예: 세종시 ○○로 123)을 위도(latitude)·경도(longitude) 숫자 좌표로 변환하는 작업입니다.",
-        ],
-        [
-          "API Key",
-          "외부 서비스(카카오)를 사용할 때 본인임을 증명하는 비밀 문자열입니다. 유출 시 타인이 내 할당량을 소진할 수 있습니다.",
-        ],
-        [
-          "Domain Restriction",
-          "특정 웹 주소(도메인)에서만 JS 키 사용을 허용하는 보안 설정입니다. 공개 배포 시 필수입니다.",
+          "Geocoding API",
+          "주소를 좌표로, 또는 좌표를 주소로 변환하는 API. 본 프로젝트에서는 서버 측에서 주소 정규화에 사용합니다.",
         ],
       ]) +
-      `<p class="study-p">설정 진입점: 프로젝트 루트의 <code>kakao_keys.paste</code> 파일에 키를 붙여넣은 뒤 <code>bash ~/hermes-restaurant-setup.sh</code>를 실행합니다. 내부에서 <code>apply_kakao_keys.py</code>가 <code>.env</code>와 <code>config.js</code>를 자동 생성합니다.</p>` +
       STUDY_TMPL.pitfalls([
-        "REST 키와 JS 키를 한 파일에만 넣고 끝내면, geocode는 되는데 지도가 안 뜨거나 그 반대가 발생할 수 있습니다. 두 키 모두 발급·적용했는지 확인합니다.",
-        "API 키·<code>.env</code>·<code>kakao_keys.paste</code>는 GitHub 등 공개 저장소에 올리지 않습니다. <code>.gitignore</code>로 제외되어 있습니다.",
-        "카카오 콘솔에 <code>localhost:5173</code>, <code>127.0.0.1:5173</code>, GitHub Pages URL을 등록하지 않으면 JS SDK 초기화가 실패합니다.",
-        "SDK 초기화 실패 시 Leaflet+OpenStreetMap fallback으로 동작합니다.",
+        "Naver Cloud 콘솔에서 http://localhost:5173, https://jdragon712.github.io 등 정확한 도메인을 등록해야 SDK가 로드됩니다.",
+        "Client ID만 설정하고 SDK 스크립트 로드를 잊으면 지도가 뜨지 않습니다.",
+        "Kakao와 Naver 키를 혼용하면 에러가 발생하니 config의 preferNaverMap / preferKakaoMap을 명확히 설정하세요.",
       ]) +
       STUDY_TMPL.checkpoint(
-        "REST API 키는 어느 스크립트·어느 폴더에서 읽히고, JavaScript 키는 어느 파일·어느 환경(서버/브라우저)에서 쓰이는지 짝지어 말할 수 있나요?"
-      ) +
-      STUDY_TMPL.warn(
-        "API 키·<code>.env</code>·<code>kakao_keys.paste</code>는 버전 관리·공개 저장소에 포함하지 마세요. 키가 유출되면 카카오 콘솔에서 즉시 재발급·폐기합니다."
+        "Kakao와 Naver 중 왜 Naver를 선택했는지, 그리고 두 플랫폼의 geocode/지도 SDK 차이를 한 문장으로 설명할 수 있나요?"
       ) +
       STUDY_TMPL.recap(
-        "Kakao 연동은 REST(서버 geocode) 키와 JavaScript(브라우저 지도 SDK) 키를 분리합니다. paste + setup.sh로 provisioning하며, JS 키는 도메인 제한이 필수입니다."
+        "Naver Map은 국내 이용자 규모와 예약·플레이스 연계에서 강점을 가집니다. 본 프로젝트는 preferNaverMap: true로 Naver를 주로 사용하며, 필요 시 Kakao로 전환 가능합니다."
       ),
   },
+
   {
     id: "e14-kakao-setup",
-    title: "Kakao API 키 프로비저닝",
-    keywords: "setup kakao_keys",
-    lead: "초기 1회 설정 절차입니다. kakao_keys.paste에 키를 작성한 뒤 setup.sh를 실행하면 .env와 config.js가 생성되고, 이후 파이프라인에서 geocode·지도 SDK가 동작합니다.",
+    title: "Naver Map API 키 프로비저닝 (Kakao → Naver 전환 포함)",
+    keywords: "setup naver_keys",
+    lead: "초기 1회 설정 절차입니다. naver_keys.paste (또는 기존 kakao_keys.paste)에 Client ID를 작성한 뒤 setup.sh를 실행하면 .env와 config.js가 생성되고, Naver 지도 SDK가 동작합니다.",
     html:
       STUDY_TMPL.module(2, "데이터 파이프라인", 5) +
       STUDY_TMPL.goal([
@@ -84,64 +86,59 @@ window.STUDY_EXPANDED_2 = [
         "Provisioning이란",
         "<p>" +
           STUDY_TMPL.en("Provisioning", "초기 설정") +
-          "은 서비스가 동작하는 데 필요한 비밀 값·설정 파일을 한곳에 모아 배포 가능한 상태로 만드는 과정입니다. 본 프로젝트에서는 <code>kakao_keys.paste</code> → <code>apply_kakao_keys.py</code> → <code>scripts/.env</code> + <code>web/js/config.js</code> 순으로 진행됩니다.</p>" +
+          "은 서비스가 동작하는 데 필요한 비밀 값·설정 파일을 한곳에 모아 배포 가능한 상태로 만드는 과정입니다. 본 프로젝트에서는 <code>naver_keys.paste</code> (또는 kakao_keys.paste) → 적용 스크립트 → <code>scripts/.env</code> + <code>web/js/config.js</code> 순으로 진행됩니다.</p>" +
           "<p><code>hermes-restaurant-setup.sh</code>는 키가 없으면 예시 파일을 복사하고 편집기를 연 뒤 종료합니다. 키를 저장한 후 <strong>동일 명령을 다시 실행</strong>해야 적용이 완료됩니다. 키가 있으면 apply 후 전체 파이프라인(<code>run_pipeline.sh</code>)까지 이어질 수 있습니다.</p>"
       ) +
-      `<pre class="study-code">REST_API_KEY=
-JAVASCRIPT_KEY=</pre>` +
-      `<p class="study-p">각 줄에 <code>=</code> 뒤에 카카오 개발자 콘솔에서 복사한 키 문자열을 붙여넣습니다. 따옴표는 필요 없습니다. 공백·줄바꿈 없이 한 줄로 붙입니다.</p>` +
+      `<pre class="study-code">NAVER_CLIENT_ID=your_ncp_key_id_here
+# (이전 Kakao 사용 시)
+# KAKAO_REST_API_KEY=
+# KAKAO_JS_KEY=</pre>` +
+      `<p class="study-p">Naver Cloud 콘솔에서 발급한 <code>ncpKeyId</code> (Client ID)를 붙여넣습니다. Kakao에서 Naver로 전환 시 기존 kakao_keys.paste를 naver 중심으로 업데이트하세요.</p>` +
       STUDY_TMPL.glossary([
         [
-          "REST_API_KEY",
-          "카카오 콘솔의 REST API 키입니다. apply 시 <code>scripts/.env</code>의 <code>KAKAO_REST_API_KEY</code>로 기록됩니다.",
-          "REST API 키",
+          "NAVER_CLIENT_ID",
+          "Naver Cloud Platform에서 발급받은 Client ID (ncpKeyId). JS SDK에서 ?ncpKeyId= 로 사용됩니다.",
+          "네이버 클라이언트 ID",
         ],
         [
-          "JAVASCRIPT_KEY",
-          "카카오 콘솔의 JavaScript 키입니다. <code>web/js/config.js</code>의 <code>KAKAO_JS_KEY</code>로 기록되며 배포 시 공개됩니다.",
-          "자바스크립트 키",
-        ],
-        [
-          "apply_kakao_keys.py",
-          "paste 파일을 읽어 .env와 config.js를 자동 생성하는 Python 스크립트입니다. 수동 편집보다 실수를 줄입니다.",
+          "apply_naver_keys.py (또는 기존 apply)",
+          "paste 파일을 읽어 .env와 config.js를 생성/업데이트하는 스크립트. Naver Client ID를 MAP_CONFIG에 반영합니다.",
           "키 적용 스크립트",
         ],
         [
-          "Kakao Developers Console",
-          "https://developers.kakao.com 에서 앱을 만들고 REST·JavaScript 키를 발급·도메인을 등록하는 웹 관리 화면입니다.",
-          "카카오 개발자 콘솔",
+          "Naver Cloud Console",
+          "https://console.ncloud.com/ 또는 Naver Maps 콘솔에서 애플리케이션 생성, Client ID 발급, 도메인 등록.",
+          "네이버 클라우드 콘솔",
         ],
       ]) +
       STUDY_TMPL.exercise(
         "키 적용",
         "bash ~/hermes-restaurant-setup.sh",
-        "키가 비어 있으면 편집기가 열립니다. kakao_keys.paste에 REST·JS 키를 저장한 뒤 동일 명령을 다시 실행합니다. 성공 시 .env·config.js가 생성됩니다."
+        "키가 비어 있으면 편집기가 열립니다. naver_keys.paste (또는 kakao_keys.paste)에 Naver Client ID를 저장한 뒤 동일 명령을 다시 실행합니다. 성공 시 .env·config.js가 생성되고 preferNaverMap이 반영됩니다."
       ) +
       STUDY_TMPL.concept(
-        "도메인 등록 체크리스트",
-        "<p>JavaScript 키는 브라우저에 노출되므로, 카카오 콘솔 → 앱 → 플랫폼 → Web → 사이트 도메인에 아래를 등록합니다.</p>" +
+        "도메인 등록 체크리스트 (Naver)",
+        "<p>Naver Maps JS SDK는 브라우저 노출 키이므로, Naver Cloud 콘솔 → Application → Platform → Web → Site URL에 아래를 등록합니다.</p>" +
           "<ul class='study-ul'>" +
           "<li>로컬 미리보기: <code>http://127.0.0.1:5173</code>, <code>http://localhost:5173</code></li>" +
           "<li>공개 배포: <code>https://jdragon712.github.io</code> (또는 실제 Pages URL)</li>" +
           "</ul>" +
-          "<p>등록하지 않으면 SDK 초기화 오류가 나고, 앱은 " +
-          STUDY_TMPL.en("fallback") +
-          "으로 OpenStreetMap 지도를 표시합니다. 지도는 보이지만 카카오 POI 정밀도가 달라질 수 있습니다.</p>"
+          "<p>등록하지 않으면 SDK 로드 실패. fallback으로 Leaflet(OSM)이 동작할 수 있지만, Naver POI와 연계 기능이 제한됩니다.</p>"
       ) +
       STUDY_TMPL.pitfalls([
-        "카카오 콘솔에 localhost:5173, github.io Pages 도메인을 등록하지 않으면 SDK 초기화가 실패할 수 있습니다.",
-        "실패 시 Leaflet(OSM) 폴백으로 지도는 표시되나 POI 정밀도가 달라질 수 있습니다.",
-        "REST 키만 넣고 JS 키를 비워 두면 geocode는 되지만 브라우저 카카오 지도는 동작하지 않습니다.",
-        "키 앞뒤에 공백·따옴표가 들어가면 API 호출이 거부됩니다. 복사 시 한 줄만 정확히 붙여넣습니다.",
+        "Naver Cloud 콘솔에 localhost:5173, github.io 도메인을 정확히 등록하지 않으면 Naver Maps SDK 초기화가 실패합니다.",
+        "Client ID만 config에 넣고 SDK 스크립트 로드(<script> with ncpKeyId)를 하지 않으면 지도가 뜨지 않습니다.",
+        "preferNaverMap: true 인데 naverClientId가 비어 있으면 Naver 시도가 실패하고 Kakao fallback으로 갈 수 있습니다 (설정 확인).",
+        "키 앞뒤 공백·따옴표가 들어가면 API 호출 거부. 복사 시 한 줄 정확히.",
       ]) +
       STUDY_TMPL.tip(
-        "키 동작 확인: <code>source scripts/ensure_venv.sh &amp;&amp; \"$RESTAURANT_MAP_PYTHON\" scripts/test_kakao_key.py</code> — REST 키 유효성을 빠르게 점검합니다."
+        "Naver 키 확인: config.js의 naverClientId와 콘솔 도메인 일치 여부, 브라우저 콘솔에서 'ncpKeyId' 파라미터 확인."
       ) +
       STUDY_TMPL.checkpoint(
-        "setup.sh를 처음 실행했을 때 편집기만 열리고 종료되었다면, 다음에 해야 할 일은 무엇인가요?"
+        "setup.sh를 처음 실행했을 때 편집기만 열리고 종료되었다면, 다음에 해야 할 일은 무엇인가요? (Naver 전환 시에도 동일한가요?)"
       ) +
       STUDY_TMPL.recap(
-        "paste → setup.sh → .env + config.js. 키 미입력 시 편집 후 재실행이 필요하며, JS 키는 카카오 콘솔 도메인 등록이 필수입니다."
+        "Naver Client ID → paste → setup.sh → .env + config.js (preferNaverMap: true). 도메인 등록 필수이며, Kakao에서 전환 시에도 동일 절차."
       ),
   },
   {

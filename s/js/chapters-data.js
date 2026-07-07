@@ -210,45 +210,51 @@ source scripts/ensure_venv.sh
   },
   {
     id: "ch05-kakao-keys",
-    title: "카카오 API 키 설정",
-    keywords: "kakao REST JAVASCRIPT geocode config",
-    lead: "주소→좌표(geocode)와 브라우저 지도에 카카오 키가 필요합니다. 키는 절대 공개 저장소에 raw 형태로 올리지 않습니다.",
+    title: "Naver Map API 키 설정 (Kakao → Naver)",
+    keywords: "naver client id geocode config",
+    lead: "주소→좌표(geocode)와 브라우저 지도에 Naver Client ID가 필요합니다. 키는 절대 공개 저장소에 raw 형태로 올리지 않습니다. (이전 Kakao 사용 시에도 호환 구조 유지)",
     html: `
-      <h2 class="study-h2">키 두 종류</h2>
+      <h2 class="study-h2">키 구조 (현재 Naver 우선)</h2>
       <table class="study-table">
-        <tr><th>REST_API_KEY</th><td>Python <code>geocode_venues.py</code> 가 서버에서 주소 검색할 때 사용. <code>scripts/.env</code> 에 저장</td></tr>
-        <tr><th>JAVASCRIPT_KEY</th><td>브라우저에서 카카오 지도 SDK 로드. <code>web/js/config.js</code> 에 저장 (배포됨 → <strong>도메인 제한 필수</strong>)</td></tr>
+        <tr><th>NAVER_CLIENT_ID</th><td>Naver Cloud Client ID (ncpKeyId). <code>web/js/config.js</code> 에 저장 (배포됨 → 도메인 제한 필수). Python geocode에도 사용 가능</td></tr>
+        <tr><th>(이전) KAKAO_REST / JS</th><td>config에서 preferKakaoMap: true 로 전환 시 사용. .env와 config.js에 배치</td></tr>
       </table>
 
       <h2 class="study-h2">설정 파일</h2>
-      <pre class="study-code">kakao_keys.paste   <span class="cmt"># 직접 편집 (gitignore)</span>
-REST_API_KEY=여기에_REST_키
-JAVASCRIPT_KEY=여기에_JS_키</pre>
+      <pre class="study-code">naver_keys.paste   <span class="cmt"># 직접 편집 (gitignore)</span>
+NAVER_CLIENT_ID=여기에_ncpKeyId
+# (Kakao 호환)
+# REST_API_KEY=...
+# JAVASCRIPT_KEY=...</pre>
 
       <h2 class="study-h2">한 번에 세팅하는 명령</h2>
       <pre class="study-code">bash ~/hermes-restaurant-setup.sh</pre>
       <p class="study-p">동작 순서:</p>
       <ol class="study-ol">
-        <li><code>kakao_keys.paste</code> 없으면 예시 파일 복사 후 편집기 열기 → 종료</li>
-        <li>키 있으면 <code>apply_kakao_keys.py</code> → <code>.env</code> + <code>config.js</code> 생성</li>
-        <li><code>run_pipeline.sh</code> 전체 실행</li>
+        <li>paste 없으면 예시 복사 → 편집기</li>
+        <li>키 있으면 apply → .env + config.js (preferNaverMap: true 반영)</li>
+        <li>파이프라인 실행</li>
       </ol>
 
-      <h2 class="study-h2">geocode_venues.py 가 키 읽는 방법</h2>
-      <pre class="study-code"><span class="cmt"># scripts/geocode_venues.py</span>
-ENV_FILE = ROOT / "scripts" / ".env"
-<span class="cmt"># KAKAO_REST_API_KEY 또는 REST_API_KEY 형태로 .env에 있음</span></pre>
+      <h2 class="study-h2">config.js 예시 (Naver 우선)</h2>
+      <pre class="study-code">export const MAP_CONFIG = {
+  naverClientId: "0rhl42vxm3",
+  preferNaverMap: true,
+  // Kakao fallback
+  kakaoJsKey: "...",
+  preferKakaoMap: false,
+};</pre>
 
       <h2 class="study-h2">로컬 vs GitHub 차이</h2>
       <ul class="study-ul">
-        <li>로컬 <code>127.0.0.1:5173</code> — 카카오 콘솔에 도메인 등록 필요</li>
-        <li>미등록 시 → Leaflet + OpenStreetMap 폴백 (지도는 뜨지만 카카오 POI 정밀도↓)</li>
-        <li>공개 URL <code>jdragon712.github.io/sejong-official-restaurant-map</code> 도 등록</li>
+        <li>로컬 <code>127.0.0.1:5173</code> — Naver Cloud 콘솔에 도메인 등록 필요</li>
+        <li>미등록 시 → Leaflet + OSM 폴백 (지도는 뜨지만 Naver POI 정밀도↓)</li>
+        <li>공개 URL <code>jdragon712.github.io</code> 도 등록</li>
       </ul>
 
       <div class="callout callout--warn">
         <strong>보안</strong>
-        <code>kakao_keys.paste</code>, <code>scripts/.env</code>, <code>data/private/</code>, <code>data/raw/</code> 는 GitHub에 올리지 마세요.
+        paste, .env, private data 는 GitHub에 올리지 마세요.
       </div>
     `,
   },

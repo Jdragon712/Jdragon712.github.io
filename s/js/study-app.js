@@ -48,14 +48,10 @@
     if (Array.isArray(saved)) saved.forEach(function (id) { doneSet.add(id); });
   } catch (_e) {}
 
-  var currentIndex = 0;
-  try {
-    var last = localStorage.getItem(STORAGE_LAST);
-    if (last) {
-      var idx = chapters.findIndex(function (c) { return c.id === last; });
-      if (idx >= 0) currentIndex = idx;
-    }
-  } catch (_e2) {}
+  // 링크 클릭 시 항상 Part 1-1 (e01-welcome)을 첫 화면으로
+  var part1FirstId = "e01-welcome";
+  var currentIndex = chapters.findIndex(function (c) { return c.id === part1FirstId; });
+  if (currentIndex < 0) currentIndex = 0;
 
   var collapsedParts = new Set();
   try {
@@ -311,7 +307,7 @@
     if (ev.key === "ArrowRight" && currentIndex < chapters.length - 1) renderChapter(currentIndex + 1);
   });
 
-  setTocOpen(true);
+  setTocOpen(false);  // Part1-1 화면을 먼저 보여주고, 사용자가 목록을 열어 이동하게
   renderNav();
   renderChapter(currentIndex);
 })();

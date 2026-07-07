@@ -253,9 +253,9 @@ bash ~/hermes-restaurant-update.sh --data-as-of 2026-06-30 --deploy</pre>
   },
   {
     id: "e31-kakao-leaflet",
-    title: "지도 렌더링 엔진 — Kakao Maps / Leaflet 폴백",
-    keywords: "kakao leaflet OSM 폴백",
-    lead: "1차 지도 엔진은 Kakao Maps JavaScript SDK이며, 초기화 실패 시 Leaflet과 OpenStreetMap(OSM) 타일로 graceful degradation합니다. 키·도메인 문제가 있어도 지도 자체는 비어 있지 않게 하는 가용성 우선 설계입니다.",
+    title: "지도 렌더링 엔진 — Naver Map / Leaflet 폴백",
+    keywords: "naver leaflet OSM 폴백",
+    lead: "1차 지도 엔진은 Naver Maps JavaScript SDK이며, 초기화 실패 시 Leaflet과 OpenStreetMap(OSM) 타일로 graceful degradation합니다. 키·도메인 문제가 있어도 지도 자체는 비어 있지 않게 하는 가용성 우선 설계입니다.",
     html:
       STUDY_TMPL.module(3, "웹·운영", 5) +
       STUDY_TMPL.goal([
