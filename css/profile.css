@@ -235,8 +235,8 @@ a:hover {
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 2.5rem;
+  grid-template-columns: 1fr 340px;
+  gap: 2rem;
   align-items: center;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
@@ -246,11 +246,11 @@ a:hover {
 }
 
 .hero__tagline {
-  max-width: 72ch;
+  max-width: 80ch;
 }
 
 .hero__bio {
-  max-width: 78ch;
+  max-width: 85ch;
 }
 
 .hero__visual {
@@ -261,7 +261,7 @@ a:hover {
 
 .hero-symbol {
   width: 100%;
-  max-width: 380px;
+  max-width: 340px;
   height: auto;
   display: block;
 }
