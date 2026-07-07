@@ -1,6 +1,19 @@
 (function () {
   "use strict";
 
+  function wrapTablesForScroll(root) {
+    if (!root) root = document;
+    root.querySelectorAll('table.study-table').forEach(function (table) {
+      var parent = table.parentNode;
+      if (parent && !parent.classList.contains('table-scroll')) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll';
+        parent.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+    });
+  }
+
   var STORAGE_DONE = "sejong-study-done-chapters";
   var STORAGE_LAST = "sejong-study-last-chapter";
   var STORAGE_PARTS = "sejong-study-part-collapsed";
@@ -259,14 +272,7 @@
     saveCollapsedParts();
 
     // Wrap study tables for horizontal scrolling on mobile (user request)
-    content.querySelectorAll('.chapter-doc__body table.study-table').forEach(function (table) {
-      if (table.parentNode && !table.parentNode.classList.contains('table-scroll')) {
-        var wrapper = document.createElement('div');
-        wrapper.className = 'table-scroll';
-        table.parentNode.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
-      }
-    });
+    wrapTablesForScroll(content);
 
     renderNav(searchInput.value);
     updateProgress();
@@ -276,6 +282,7 @@
     document.getElementById("btn-prev").disabled = index === 0;
     document.getElementById("btn-next").disabled = index === chapters.length - 1;
     if (window.STUDY_DEMO_BOOT) window.STUDY_DEMO_BOOT(content);
+    wrapTablesForScroll(content);
   }
 
   nav.addEventListener("click", function (ev) {
@@ -321,4 +328,8 @@
   setTocOpen(false);  // Part1-1 화면을 먼저 보여주고, 사용자가 목록을 열어 이동하게
   renderNav();
   renderChapter(currentIndex);
+
+  // Ensure tables are wrapped for scroll (in case of timing)
+  wrapTablesForScroll(content);
+  window.addEventListener('load', function () { wrapTablesForScroll(content); });
 })();
