@@ -235,8 +235,8 @@ a:hover {
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 2.5rem;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 3rem;
   align-items: center;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
@@ -247,8 +247,25 @@ a:hover {
 
 .hero__visual {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.symbolic-visual {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.08),
+              0 8px 25px -8px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: #fff;
+}
+
+.symbolic-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 @media (max-width: 860px) {
