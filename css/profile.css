@@ -234,42 +234,60 @@ a:hover {
 /* ── Hero ── */
 
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 3.25rem;
-  align-items: center;
+  position: relative;
+  overflow: hidden;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  padding: 2rem 0;
 }
 
-.hero__text {
-  max-width: 56ch;
+.hero__bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 52%;
+  z-index: 0;
+  opacity: 0.18; /* subtle background seep */
+  pointer-events: none;
 }
 
-.hero__visual {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.hero-symbol {
+.hero__bg .hero-bg-img {
   width: 100%;
-  max-width: 520px;
-  height: auto;
-  display: block;
-  /* Make it feel like a bold logo/symbol like Google I/O */
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.08));
+  height: 100%;
+  object-fit: contain;
+  object-position: right center;
+  mix-blend-mode: multiply; /* helps blend as background */
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 82%;
+  /* spread text across, not crammed left */
+}
+
+.hero__tagline {
+  max-width: 72ch; /* allow longer lines */
+}
+
+.hero__bio {
+  max-width: 78ch; /* spread the subtitle/bio */
 }
 
 @media (max-width: 860px) {
   .hero {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    padding: 1.5rem 0;
   }
-  .hero__visual {
-    justify-content: center;
+  .hero__bg {
+    width: 100%;
+    opacity: 0.12;
   }
-  .hero-symbol {
-    max-width: 320px;
+  .hero__content {
+    max-width: 100%;
+  }
+  .hero__tagline,
+  .hero__bio {
+    max-width: 100%;
   }
 }
 
@@ -312,93 +330,10 @@ a:hover {
   margin: 0;
   font-size: var(--text-base);
   color: var(--text-secondary);
-  max-width: 54ch;
   line-height: 1.65;
 }
 
-/* Hero right-side project previews - image based, blends with clean design */
-.preview-card {
-  display: block;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-.preview-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(0, 113, 227, 0.2);
-}
-
-.preview-image {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: #f5f5f7;
-}
-
-.preview-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.2s ease;
-}
-
-.preview-card:hover .preview-image img {
-  transform: scale(1.015);
-}
-
-.preview-info {
-  padding: 0.75rem 0.85rem 0.85rem;
-}
-
-.preview-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.35rem;
-}
-
-.preview-title {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--ink);
-  line-height: 1.2;
-}
-
-.preview-status {
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 0.08rem 0.4rem;
-  border-radius: 999px;
-  background: var(--ok-soft);
-  color: #0a7b2e;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-}
-
-.preview-meta {
-  display: flex;
-  gap: 0.3rem;
-  flex-wrap: wrap;
-}
-
-.preview-meta .tag {
-  font-size: 0.65rem;
-  padding: 0.05rem 0.38rem;
-  border-radius: 999px;
-  background: var(--surface-secondary);
-  color: var(--muted);
-  font-weight: 500;
-}
+/* (old hero preview styles removed - now using background symbolic visual) */
 
 .hero__actions {
   display: flex;
