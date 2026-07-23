@@ -4,11 +4,28 @@
     "pageTitle": "JDragon712 — AI 네이티브 빌더",
     "tagline": "생각을 현실로 만듭니다.",
     "bio": "공공 데이터를 기반으로 AI를 활용해 아이디어를 실제 운영 가능한 웹 서비스까지 구현합니다. NVIDIA의 AI 인프라를 연결해 대용량 데이터 처리와 지능형 자동화를 수행하고, Grok과 Hermes를 결합해 복잡한 분석·설계·배포 전 과정을 효율화합니다.",
-    "updated": "2026-07-07",
+    "updated": "2026-07-24",
     "version": 3
   },
   "links": [],
   "projects": [
+    {
+      "id": "vibe-coding-solo",
+      "status": "live",
+      "category": "학습",
+      "title": "바이브 코딩 1인 창업 학습관",
+      "description": "조코딩 「바이브 코딩 1인 창업 3시간 통합본」을 초보자용으로 풀어 쓴 학습 웹. 기획·도구·빌드·수익·성장·체크리스트·용어집(9장). 퀴즈·진행률·실습 포함.",
+      "tags": [
+        "바이브코딩",
+        "1인창업",
+        "9장",
+        "GitHub Pages"
+      ],
+      "href": "https://jdragon712.github.io/vibe-coding-solo-learning/",
+      "external": true,
+      "featured": true,
+      "accent": "#00a890"
+    },
     {
       "id": "sejong-map",
       "status": "live",
