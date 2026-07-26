@@ -99,29 +99,20 @@
 
   function renderBrandMarks(profile) {
     var brand = profile.brand || "JDragon712";
-    var meaning = profile.brandMeaning || "여의주";
-    var detail =
-      profile.brandMeaningDetail ||
-      "보배진·용용 한자 이름에서 비롯된 ‘여의주’입니다.";
-    var label = brand + " — " + meaning;
     ["hero-mark", "nav-mark"].forEach(function (id) {
       var node = document.getElementById(id);
       if (!node) return;
       node.innerHTML = "";
       node.appendChild(buildYeouijuMark());
       node.appendChild(buildBrandWordmark(brand));
-      node.setAttribute("aria-label", label);
-      node.setAttribute("title", detail);
+      node.setAttribute("aria-label", brand);
+      node.removeAttribute("title");
       node.removeAttribute("aria-hidden");
     });
     var brandLink = document.querySelector(".nav__brand");
     if (brandLink) {
-      brandLink.setAttribute("aria-label", label);
-      brandLink.setAttribute("title", detail);
-    }
-    var meaningEl = document.getElementById("brand-meaning");
-    if (meaningEl) {
-      meaningEl.textContent = detail;
+      brandLink.setAttribute("aria-label", brand);
+      brandLink.removeAttribute("title");
     }
     document.title = profile.pageTitle || brand;
   }
@@ -281,11 +272,9 @@
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
     if (copy) {
-      var meaning = profile.brandMeaning ? " · " + profile.brandMeaning : "";
       copy.textContent =
         "© " +
         (profile.brand || "JDragon712") +
-        meaning +
         " · 업데이트 " +
         profile.updated;
     }
@@ -327,7 +316,7 @@
     scrollToTopUnlessHash();
   }
 
-  fetch("data/profile.json?v=2026072709")
+  fetch("data/profile.json?v=2026072710")
     .then(function (res) {
       if (!res.ok) throw new Error("profile.json load failed");
       return res.json();

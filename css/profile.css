@@ -561,13 +561,7 @@ a:hover {
   opacity: 0.96;
 }
 
-.hero__brand-meaning {
-  max-width: 48ch;
-  margin: 0.7rem 0 0;
-  font-size: var(--text-sm);
-  color: var(--muted);
-  line-height: 1.55;
-}
+
 
 /* ── Projects ── */
 
