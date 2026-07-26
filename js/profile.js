@@ -120,8 +120,11 @@
 
     projects.forEach(function (p) {
       var statusClass =
-        p.status === "live" ? "project-card__status" : "project-card__status project-card__status--soon";
-      var statusLabel = p.status === "live" ? "운영 중" : "준비 중";
+        p.status === "live"
+          ? "project-card__status"
+          : "project-card__status project-card__status--soon";
+      var statusLabel =
+        p.status === "live" ? "운영 중" : p.status === "building" ? "앱 개발 중" : "준비 중";
       var target = p.external ? "_blank" : "_self";
       var rel = p.external ? "noopener noreferrer" : "";
 
