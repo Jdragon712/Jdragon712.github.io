@@ -8,13 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="color-scheme" content="light" />
-  <title>JDragon712 — AI 네이티브 빌더</title>
-  <meta name="description" content="공공 데이터를 기반으로 AI를 활용해 아이디어를 실제 운영 가능한 웹 서비스까지 구현합니다. NVIDIA의 AI 인프라를 연결해 대용량 데이터 처리와 지능형 자동화를 수행하고, Grok과 Hermes를 결합해 복잡한 분석·설계·배포 전 과정을 효율화합니다." />
+  <title>JDragon712 — 공공·앱을 실제로 만드는 빌더</title>
+  <meta name="description" content="공공·현장 문제를 데이터와 AI로 웹·앱까지 구현합니다. 운영 중인 고충·법령 리서치 웹, 청년 사연 플랫폼, 배드민턴 앱 소개." />
   <link rel="canonical" href="https://jdragon712.github.io/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/profile.css?v=2026072702" />
+  <link rel="stylesheet" href="css/profile.css?v=2026072703" />
   <script>
     (function () {
       if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -38,8 +38,10 @@
   <main class="page">
     <section class="hero" aria-labelledby="hero-tagline">
       <div class="hero__content">
+        <p class="hero__role" id="hero-role"></p>
         <p class="hero__tagline" id="hero-tagline"></p>
         <p class="hero__bio" id="hero-bio"></p>
+        <ul class="hero__highlights" id="hero-highlights"></ul>
       </div>
     </section>
 
@@ -47,8 +49,9 @@
       <div class="section__head">
         <span class="section__label">Projects</span>
         <h2 class="section__title" id="projects-title">공개 프로젝트</h2>
-        <p class="section__desc">데이터 수집부터 배포·교재화까지, 실제로 운영 중인 결과물입니다.</p>
+        <p class="section__desc">배포·운영 중인 결과물을 종류별로 모았습니다. Live URL을 우선 확인하세요.</p>
       </div>
+      <div class="filter-bar" id="filter-bar" role="tablist" aria-label="프로젝트 종류"></div>
       <div class="projects-scroll" id="projects-scroll">
         <div class="projects" id="projects-grid"></div>
       </div>
@@ -60,11 +63,11 @@
     </footer>
   </main>
 
-  <script src="js/profile.js?v=2026072702"></script>
+  <script src="js/profile.js?v=2026072703"></script>
   <script
     async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9196941060199524"
     crossorigin="anonymous"
   ></script>
 </body>
-</html><!-- cache bust #오후 -->
+</html>

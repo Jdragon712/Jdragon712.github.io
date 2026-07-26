@@ -9,6 +9,12 @@
       '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h8.59L9.3 5.71 10.71 4.3 16 9.59l-5.29 5.29-1.41-1.41L11.59 10H3V8z"/></svg>',
   };
 
+  var state = {
+    allProjects: [],
+    filter: "all",
+    filters: [],
+  };
+
   function el(tag, attrs, html) {
     var node = document.createElement(tag);
     if (attrs) {
@@ -22,6 +28,14 @@
     return node;
   }
 
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
   function findLink(links, icon) {
     for (var i = 0; i < links.length; i++) {
       if (links[i].icon === icon) return links[i];
@@ -32,23 +46,19 @@
   function renderNav(links) {
     var navLinks = document.getElementById("nav-links");
     if (!navLinks) return;
-
-    // AI 네이티브 빌더 pill instead of "프로젝트" text
+    navLinks.innerHTML = "";
     var ai = el("a", {
       className: "nav__ai-pill",
       href: "#projects",
-      "aria-label": "AI 네이티브 빌더"
+      "aria-label": "프로젝트",
     });
-    ai.innerHTML = '<span class="nav__ai-dot"></span>AI 네이티브 빌더';
+    ai.innerHTML = '<span class="nav__ai-dot"></span>Projects';
     navLinks.appendChild(ai);
-
-    // no social icons since links removed
   }
 
   function buildBrandWordmark(brand) {
     var wrap = el("span", { className: "brand-logo__wordmark" });
     var parts = brand.match(/^([A-Z])([A-Za-z]+)(\d+)$/);
-
     if (parts) {
       wrap.appendChild(el("span", { className: "brand-logo__lead" }, parts[1]));
       wrap.appendChild(el("span", { className: "brand-logo__stem" }, parts[2]));
@@ -56,7 +66,6 @@
     } else {
       wrap.textContent = brand;
     }
-
     return wrap;
   }
 
@@ -69,14 +78,28 @@
       node.appendChild(buildBrandWordmark(brand));
       node.setAttribute("aria-label", brand);
     });
-    document.title = profile.pageTitle || brand + " — AI 네이티브 빌더";
+    document.title = profile.pageTitle || brand;
   }
 
   function renderHero(profile, links) {
+    var role = document.getElementById("hero-role");
     var tagline = document.getElementById("hero-tagline");
     var bio = document.getElementById("hero-bio");
+    var highlights = document.getElementById("hero-highlights");
+
+    if (role) {
+      role.textContent = profile.role || "AI 네이티브 빌더";
+    }
     if (tagline) tagline.textContent = profile.tagline;
     if (bio) bio.textContent = profile.bio;
+
+    if (highlights) {
+      highlights.innerHTML = "";
+      (profile.highlights || []).forEach(function (h) {
+        highlights.appendChild(el("li", { className: "hero__highlight" }, escapeHtml(h)));
+      });
+    }
+
     renderBrandMarks(profile);
     renderHeroActions(links);
   }
@@ -85,22 +108,7 @@
     var wrap = document.getElementById("hero-actions");
     if (!wrap) return;
     wrap.innerHTML = "";
-
-    var xLink = findLink(links, "x");
     var ghLink = findLink(links, "github");
-
-    if (xLink) {
-      var xBtn = el("a", {
-        className: "hero__btn hero__btn--x hero__btn--icon",
-        href: xLink.href,
-        target: "_blank",
-        rel: "noopener noreferrer",
-        "aria-label": xLink.label,
-      });
-      xBtn.innerHTML = ICONS.x;
-      wrap.appendChild(xBtn);
-    }
-
     if (ghLink) {
       var ghBtn = el("a", {
         className: "hero__btn hero__btn--ghost",
@@ -113,42 +121,112 @@
     }
   }
 
+  function statusLabel(status) {
+    if (status === "live") return "운영 중";
+    if (status === "building") return "앱 개발 중";
+    if (status === "intro") return "소개";
+    return "준비 중";
+  }
+
+  function renderFilters(filters) {
+    var bar = document.getElementById("filter-bar");
+    if (!bar) return;
+    bar.innerHTML = "";
+    (filters || [{ id: "all", label: "전체" }]).forEach(function (f) {
+      var btn = el("button", {
+        type: "button",
+        className:
+          "filter-chip" + (state.filter === f.id ? " filter-chip--active" : ""),
+        "data-filter": f.id,
+        role: "tab",
+        "aria-selected": state.filter === f.id ? "true" : "false",
+      });
+      btn.textContent = f.label;
+      btn.addEventListener("click", function () {
+        state.filter = f.id;
+        renderFilters(state.filters);
+        renderProjects(state.allProjects);
+      });
+      bar.appendChild(btn);
+    });
+  }
+
+  function filteredProjects(projects) {
+    if (state.filter === "all") return projects;
+    return projects.filter(function (p) {
+      return (p.filter || "") === state.filter;
+    });
+  }
+
   function renderProjects(projects) {
     var grid = document.getElementById("projects-grid");
     if (!grid) return;
     grid.innerHTML = "";
 
-    projects.forEach(function (p) {
-      var statusClass =
-        p.status === "live"
-          ? "project-card__status"
-          : "project-card__status project-card__status--soon";
-      var statusLabel =
-        p.status === "live" ? "운영 중" : p.status === "building" ? "앱 개발 중" : "준비 중";
+    var list = filteredProjects(projects);
+    if (!list.length) {
+      grid.appendChild(
+        el(
+          "p",
+          { className: "projects-empty" },
+          "이 분류에 해당하는 프로젝트가 없습니다.",
+        ),
+      );
+      return;
+    }
+
+    list.forEach(function (p) {
+      var isLive = p.status === "live";
+      var statusClass = isLive
+        ? "project-card__status"
+        : "project-card__status project-card__status--soon";
       var target = p.external ? "_blank" : "_self";
       var rel = p.external ? "noopener noreferrer" : "";
 
       var card = el("a", {
-        className: "project-card",
+        className: "project-card" + (p.featured ? " project-card--featured" : ""),
         href: p.href,
         target: target,
         rel: rel,
         style: { "--card-accent": p.accent || "#0071e3" },
       });
 
+      var impact = p.impact
+        ? '<p class="project-card__impact">' + escapeHtml(p.impact) + "</p>"
+        : "";
+
+      var tags = (p.tags || []).slice(0, 3);
+
       card.innerHTML =
         '<div class="project-card__top">' +
-        '<span class="project-card__category">' + escapeHtml(p.category) + "</span>" +
-        '<span class="' + statusClass + '">' + statusLabel + "</span>" +
+        '<span class="project-card__category">' +
+        escapeHtml(p.category) +
+        "</span>" +
+        '<span class="' +
+        statusClass +
+        '">' +
+        statusLabel(p.status) +
+        "</span>" +
         "</div>" +
-        "<h3 class=\"project-card__title\">" + escapeHtml(p.title) + "</h3>" +
-        "<p class=\"project-card__desc\">" + escapeHtml(p.description) + "</p>" +
+        '<h3 class="project-card__title">' +
+        escapeHtml(p.title) +
+        "</h3>" +
+        impact +
+        '<p class="project-card__desc">' +
+        escapeHtml(p.description) +
+        "</p>" +
         '<div class="project-card__tags">' +
-        p.tags.map(function (t) {
-          return '<span class="project-card__tag">' + escapeHtml(t) + "</span>";
-        }).join("") +
+        tags
+          .map(function (t) {
+            return (
+              '<span class="project-card__tag">' + escapeHtml(t) + "</span>"
+            );
+          })
+          .join("") +
         "</div>" +
-        '<span class="project-card__arrow">열기 ' + ICONS.arrow + "</span>";
+        '<span class="project-card__arrow">열기 ' +
+        ICONS.arrow +
+        "</span>";
 
       grid.appendChild(card);
     });
@@ -157,27 +235,29 @@
   function renderFooter(profile, links) {
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
-    if (copy) copy.textContent = "© " + (profile.brand || "JDragon712") + " · 업데이트 " + profile.updated;
+    if (copy) {
+      copy.textContent =
+        "© " +
+        (profile.brand || "JDragon712") +
+        " · 업데이트 " +
+        profile.updated;
+    }
     if (!footLinks) return;
     footLinks.innerHTML = "";
-    links.forEach(function (link) {
+    (links || []).forEach(function (link) {
       footLinks.appendChild(
-        el("a", {
-          className: "foot__link",
-          href: link.href,
-          target: "_blank",
-          rel: "noopener noreferrer",
-        }, link.label)
+        el(
+          "a",
+          {
+            className: "foot__link",
+            href: link.href,
+            target: "_blank",
+            rel: "noopener noreferrer",
+          },
+          link.label,
+        ),
       );
     });
-  }
-
-  function escapeHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
   }
 
   function scrollToTopUnlessHash() {
@@ -189,14 +269,18 @@
   }
 
   function init(data) {
-    renderNav(data.links);
-    renderHero(data.profile, data.links);
-    renderProjects(data.projects);
-    renderFooter(data.profile, data.links);
+    state.allProjects = data.projects || [];
+    state.filters = data.filters || [{ id: "all", label: "전체" }];
+    state.filter = "all";
+    renderNav(data.links || []);
+    renderHero(data.profile, data.links || []);
+    renderFilters(state.filters);
+    renderProjects(state.allProjects);
+    renderFooter(data.profile, data.links || []);
     scrollToTopUnlessHash();
   }
 
-  fetch("data/profile.json")
+  fetch("data/profile.json?v=2026072703")
     .then(function (res) {
       if (!res.ok) throw new Error("profile.json load failed");
       return res.json();
