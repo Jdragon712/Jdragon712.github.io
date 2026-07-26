@@ -280,7 +280,7 @@
     scrollToTopUnlessHash();
   }
 
-  fetch("data/profile.json?v=2026072704")
+  fetch("data/profile.json?v=2026072705bb")
     .then(function (res) {
       if (!res.ok) throw new Error("profile.json load failed");
       return res.json();
