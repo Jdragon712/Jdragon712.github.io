@@ -56,6 +56,30 @@
     navLinks.appendChild(ai);
   }
 
+  // 여의주: 보배진·용용 한자 이름에서 비롯된 브랜드 상징 (용과 소원을 담는 진주)
+  var YEOUIJU_SVG =
+    '<svg class="brand-logo__yeouiju-svg" viewBox="0 0 40 40" aria-hidden="true" focusable="false">' +
+    "<defs>" +
+    '<radialGradient id="yeouijuPearl" cx="34%" cy="30%" r="70%">' +
+    '<stop offset="0%" stop-color="#ffffff"/>' +
+    '<stop offset="32%" stop-color="#f3fbff"/>' +
+    '<stop offset="58%" stop-color="#c9ecfa"/>' +
+    '<stop offset="82%" stop-color="#7ec8e8"/>' +
+    '<stop offset="100%" stop-color="#3a9fc8"/>' +
+    "</radialGradient>" +
+    '<linearGradient id="yeouijuRing" x1="0%" y1="0%" x2="100%" y2="100%">' +
+    '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>' +
+    '<stop offset="100%" stop-color="#d7f6ff" stop-opacity="0.55"/>' +
+    "</linearGradient>" +
+    "</defs>" +
+    '<ellipse cx="20" cy="21" rx="15.5" ry="6.2" fill="none" stroke="url(#yeouijuRing)" stroke-width="1.35" transform="rotate(-28 20 21)" opacity="0.9"/>' +
+    '<ellipse cx="20" cy="21" rx="15.5" ry="6.2" fill="none" stroke="url(#yeouijuRing)" stroke-width="1" transform="rotate(22 20 21)" opacity="0.45"/>' +
+    '<circle cx="20" cy="20" r="10.5" fill="url(#yeouijuPearl)"/>' +
+    '<circle cx="16.2" cy="15.6" r="3.4" fill="#fff" opacity="0.78"/>' +
+    '<path d="M11 26c3.6-.7 6.6 1.1 9.6 2.8 2 1.1 4.6 2 7.3.7" fill="none" stroke="#e9fbff" stroke-width="1.15" stroke-linecap="round" opacity="0.85"/>' +
+    '<path d="M28.5 14.2c1-.1.9 1.8-.1 2.7-.7.6-1.6.8-2.1.4" fill="none" stroke="#e9fbff" stroke-width="1.1" stroke-linecap="round" opacity="0.9"/>' +
+    "</svg>";
+
   function buildBrandWordmark(brand) {
     var wrap = el("span", { className: "brand-logo__wordmark" });
     var parts = brand.match(/^([A-Z])([A-Za-z]+)(\d+)$/);
@@ -69,15 +93,36 @@
     return wrap;
   }
 
+  function buildYeouijuMark() {
+    return el("span", { className: "brand-logo__yeouiju", "aria-hidden": "true" }, YEOUIJU_SVG);
+  }
+
   function renderBrandMarks(profile) {
     var brand = profile.brand || "JDragon712";
+    var meaning = profile.brandMeaning || "여의주";
+    var detail =
+      profile.brandMeaningDetail ||
+      "보배진·용용 한자 이름에서 비롯된 ‘여의주’입니다.";
+    var label = brand + " — " + meaning;
     ["hero-mark", "nav-mark"].forEach(function (id) {
       var node = document.getElementById(id);
       if (!node) return;
       node.innerHTML = "";
+      node.appendChild(buildYeouijuMark());
       node.appendChild(buildBrandWordmark(brand));
-      node.setAttribute("aria-label", brand);
+      node.setAttribute("aria-label", label);
+      node.setAttribute("title", detail);
+      node.removeAttribute("aria-hidden");
     });
+    var brandLink = document.querySelector(".nav__brand");
+    if (brandLink) {
+      brandLink.setAttribute("aria-label", label);
+      brandLink.setAttribute("title", detail);
+    }
+    var meaningEl = document.getElementById("brand-meaning");
+    if (meaningEl) {
+      meaningEl.textContent = detail;
+    }
     document.title = profile.pageTitle || brand;
   }
 
@@ -236,9 +281,11 @@
     var copy = document.getElementById("foot-copy");
     var footLinks = document.getElementById("foot-links");
     if (copy) {
+      var meaning = profile.brandMeaning ? " · " + profile.brandMeaning : "";
       copy.textContent =
         "© " +
         (profile.brand || "JDragon712") +
+        meaning +
         " · 업데이트 " +
         profile.updated;
     }
@@ -280,7 +327,7 @@
     scrollToTopUnlessHash();
   }
 
-  fetch("data/profile.json?v=2026072708")
+  fetch("data/profile.json?v=2026072709")
     .then(function (res) {
       if (!res.ok) throw new Error("profile.json load failed");
       return res.json();

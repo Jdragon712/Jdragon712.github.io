@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JDragon712 여의주">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0071e3"/>
+      <stop offset="55%" stop-color="#2eb8c8"/>
+      <stop offset="100%" stop-color="#34c759"/>
+    </linearGradient>
+    <radialGradient id="pearl" cx="35%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="28%" stop-color="#e8f7ff"/>
+      <stop offset="55%" stop-color="#8ad4ef"/>
+      <stop offset="78%" stop-color="#3aa8c8"/>
+      <stop offset="100%" stop-color="#0b6fb8"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#b8f0ff" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <ellipse cx="32" cy="34" rx="18" ry="6.5" fill="none" stroke="url(#ring)" stroke-width="1.4" transform="rotate(-28 32 34)" opacity="0.85"/>
+  <ellipse cx="32" cy="34" rx="18" ry="6.5" fill="none" stroke="url(#ring)" stroke-width="1" transform="rotate(18 32 34)" opacity="0.55"/>
+  <circle cx="32" cy="32" r="13.5" fill="url(#pearl)"/>
+  <circle cx="27" cy="26" r="4.2" fill="#fff" opacity="0.78"/>
+  <path d="M18 40c4.5-1 8.5 1.2 12 3.5 2.2 1.5 5.5 2.8 8.8 1.2 2.2-1.1 3.8-2.8 5.2-4.8" fill="none" stroke="#e8fbff" stroke-width="1.35" stroke-linecap="round" opacity="0.9"/>
+  <path d="M42 28c1.2-2.2 3.4-3.2 5-2.4 1 .5 1.2 1.8.4 3.1-.7 1.1-1.9 1.8-3.1 1.6" fill="none" stroke="#e8fbff" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+</svg>
