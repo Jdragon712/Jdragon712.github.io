@@ -45,34 +45,20 @@
     },
     {
       "id": "minton-kokok",
-      "status": "building",
-      "category": "앱",
-      "title": "민턴 콕콕 (배드민턴 레슨)",
-      "description": "코치·레슨생 매칭 Flutter 앱. 이메일·카카오·Apple 로그인, 일정·쪽지·지역 탐색. iOS TestFlight 업로드·Play 내부 테스트 준비, 약관·테스터 모집 웹 병행.",
+      "status": "live",
+      "category": "앱·소개",
+      "title": "민턴 콕콕 — 앱 소개",
+      "description": "배드민턴 코치·레슨생 매칭 앱 소개 페이지. 서비스 개요, 이용약관·개인정보 안내. (앱 스토어 출시 준비 중)",
       "tags": [
-        "Flutter",
-        "Firebase",
-        "TestFlight",
-        "iOS·Android"
+        "Flutter 앱",
+        "소개 페이지",
+        "약관",
+        "배드민턴"
       ],
       "href": "https://minton-kokok.web.app/",
       "external": true,
       "featured": true,
-      "accent": "#14b8a6",
-      "links": [
-        {
-          "label": "공식·약관",
-          "href": "https://minton-kokok.web.app/"
-        },
-        {
-          "label": "테스터 모집",
-          "href": "https://minton-kokok-testers.web.app/"
-        },
-        {
-          "label": "GitHub",
-          "href": "https://github.com/Jdragon712/badminton_lesson_app"
-        }
-      ]
+      "accent": "#14b8a6"
     },
     {
       "id": "vibe-coding-solo",
