@@ -8,11 +8,10 @@
     "highlights": [
       "국회 표결 시뮬레이터",
       "운영 중인 공개 웹",
-      "원스톱 해결사례 검색",
-      "앱 소개·서비스 안내"
+      "원스톱 해결사례 검색"
     ],
     "updated": "2026-08-13",
-    "version": 14
+    "version": 15
   },
   "filters": [
     {
@@ -92,24 +91,6 @@
       "external": true,
       "featured": true,
       "accent": "#0b1f4a"
-    },
-    {
-      "id": "minton-kokok",
-      "status": "live",
-      "category": "앱·소개",
-      "filter": "app",
-      "title": "민턴 콕콕 — 앱 소개",
-      "impact": "셔틀콕이 오가는 코트 위, 배움과 열정이 유기적으로 만나는 순간.",
-      "description": "코치와 레슨생을 최적으로 이어주는 스포츠 매칭 플랫폼의 공식 안내 공간입니다. 서비스의 핵심 가치와 이용 흐름을 다정하게 안내하며 정식 스토어 출시를 준비하고 있습니다.",
-      "tags": [
-        "배드민턴",
-        "레슨 매칭",
-        "소개"
-      ],
-      "href": "https://minton-kokok.web.app/",
-      "external": true,
-      "featured": true,
-      "accent": "#14b8a6"
     },
     {
       "id": "sejong-map",
