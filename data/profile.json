@@ -11,7 +11,7 @@
       "원스톱 해결사례 검색"
     ],
     "updated": "2026-08-13",
-    "version": 15
+    "version": 16
   },
   "filters": [
     {
@@ -45,14 +45,14 @@
       "status": "live",
       "featured": true,
       "external": true,
-      "href": "https://ember-brook-dove-sunny.grok.me",
+      "href": "https://jdragon712.github.io/assembly-vote-simulator/",
       "accent": "#1b4a9b",
       "impact": "복잡한 국회 정족수를 누구나 바로 만져 보는 표결 시뮬레이터.",
-      "description": "제22대 국회 정당별 의석을 반영해 출석·찬반을 입력하고, 일반 의결·패스트트랙·개헌·탄핵 등 유형별 정족수 성립 여부를 즉시 시뮬레이션합니다.",
+      "description": "제22대 국회 정당별 의석·출석·찬반으로 일반 의결·패스트트랙·개헌·탄핵 정족수를 시뮬레이션합니다. 브라우저 로컬 저장이라 사용자마다 독립 화면입니다.",
       "tags": [
         "국회",
         "표결 시뮬",
-        "정족수"
+        "로컬 전용"
       ],
       "repo": "https://github.com/Jdragon712/assembly-vote-simulator"
     },
