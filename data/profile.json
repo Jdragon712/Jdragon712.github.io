@@ -11,8 +11,8 @@
       "운영 중인 공개 웹",
       "원스톱 해결사례 검색"
     ],
-    "updated": "2026-08-16",
-    "version": 20
+    "updated": "2026-08-21",
+    "version": 21
   },
   "filters": [
     {
@@ -38,6 +38,24 @@
   ],
   "links": [],
   "projects": [
+    {
+      "id": "ai-leader-talk",
+      "title": "AI 혁신리더 성과 발표",
+      "category": "공공·웹",
+      "filter": "public-web",
+      "status": "live",
+      "featured": true,
+      "external": false,
+      "href": "/ai-leader/",
+      "accent": "#1d1d1f",
+      "impact": "일하면서 만든 다섯 가지 도구를 소개합니다.",
+      "description": "고충민원 의결서 초안, 달리는 국민신문고, 국회 표결 시뮬레이터, 엑셀 자동 분리기, 단골 식당 지도를 한 자리에서 열어 보는 발표 웹입니다.",
+      "tags": [
+        "발표",
+        "AI혁신리더",
+        "실무도구"
+      ]
+    },
     {
       "id": "gomin-decision-draft",
       "title": "고충민원 의결서 초안 생성기",
