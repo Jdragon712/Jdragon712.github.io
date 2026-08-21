@@ -304,6 +304,7 @@ a:hover {
   font-size: var(--text-base);
   color: var(--text-secondary);
   line-height: 1.65;
+  white-space: pre-line;
 }
 
 .hero__highlights {
@@ -429,6 +430,7 @@ a:hover {
   font-size: var(--text-base);
   color: var(--text-secondary);
   line-height: 1.65;
+  white-space: pre-line;
 }
 
 /* (old hero preview styles removed - now using background symbolic visual) */
