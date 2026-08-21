@@ -3,8 +3,8 @@
     "brand": "JDragon712",
     "pageTitle": "JDragon712 — AI Native Builder",
     "role": "AI Native Builder · Data & Public Products",
-    "tagline": "아득한 상상을 현실로 지어냅니다.",
-    "bio": "현장의 작은 목소리와 마음속 아이디어에 먼저 귀를 기울입니다. 데이터와 AI 기술을 깊이 있게 다듬어, 사람과 세상을 연결하는 다정한 디지털 경험을 만들어 갑니다.",
+    "tagline": "모두가 사용할 수 있는 개방형 프로젝트",
+    "bio": "미래는 다가서지 않으면 상상으로 남고,\n현실은 벗어나지 않으면 과거가 됩니다.",
     "highlights": [
       "고충 의결서 초안",
       "국회 표결 시뮬레이터",
@@ -12,7 +12,7 @@
       "원스톱 해결사례 검색"
     ],
     "updated": "2026-08-21",
-    "version": 21
+    "version": 22
   },
   "filters": [
     {
