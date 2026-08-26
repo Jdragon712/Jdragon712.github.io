@@ -219,14 +219,25 @@
     }
 
     if (demoOpen()) {
-      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+      if (Demo.isPeekOpen && Demo.isPeekOpen()) {
+        if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          Demo.closePeek();
+        }
+        return;
+      }
+      if (e.key === "ArrowRight" || e.key === " ") {
         e.preventDefault();
-        Demo.pause();
         Demo.next();
-      } else if (e.key === "ArrowLeft" || e.key === "PageUp" || e.key === "Backspace") {
+      } else if (e.key === "ArrowLeft" || e.key === "Backspace") {
         e.preventDefault();
-        Demo.pause();
         Demo.prev();
+      } else if (e.key === "PageDown" || e.key === "ArrowDown") {
+        e.preventDefault();
+        Demo.scrollBy(e.key === "PageDown" ? 420 : 96);
+      } else if (e.key === "PageUp" || e.key === "ArrowUp") {
+        e.preventDefault();
+        Demo.scrollBy(e.key === "PageUp" ? -420 : -96);
       } else if (e.key === "r" || e.key === "R") {
         e.preventDefault();
         Demo.replay();
