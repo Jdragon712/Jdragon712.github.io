@@ -19,9 +19,9 @@
             <p class="lede">일하면서 만든 다섯 가지 도구를 소개합니다.</p>
           </header>
           <div class="cover-stage" aria-hidden="true">
-            <figure class="stack-card c1"><img src="assets/shot-uigeol.png" alt="고충민원 의결서 초안"></figure>
-            <figure class="stack-card c2"><img src="assets/shot-dallyeo.png" alt="달리는 국민신문고"></figure>
-            <figure class="stack-card c3"><img src="assets/shot-assembly.png" alt="표결 시뮬레이션"></figure>
+            <figure class="stack-card c1"><img src="assets/shot-dallyeo.png" alt=""></figure>
+            <figure class="stack-card c2"><img src="assets/shot-assembly.png" alt=""></figure>
+            <figure class="stack-card c3"><img src="assets/shot-sejong.png" alt=""></figure>
           </div>
         </div>
         <p class="folio">1</p>
@@ -106,6 +106,7 @@
           </ol>
           <div class="bar-end">
             <img class="qr-mini" src="assets/qr-uigeol.png" alt="QR">
+            <button class="ghost example-inline" type="button" data-example="1">예시</button>
             <button class="cta" type="button" data-live="uigeol">열기</button>
           </div>
         </footer>
@@ -269,6 +270,7 @@
     </div>
   </div>
 
+  <button class="example-btn" type="button" id="example-btn" hidden>예시</button>
   <a class="portfolio-btn" href="https://jdragon712.github.io/" target="_blank" rel="noopener">포트폴리오</a>
 
   <div class="progress" aria-hidden="true"><i id="progress"></i></div>
@@ -306,7 +308,8 @@
         <li><kbd>←</kbd> 이전 장</li>
         <li><kbd>1</kbd>–<kbd>8</kbd> 해당 장으로</li>
         <li><kbd>Enter</kbd> 이 장의 웹 도구 열기</li>
-        <li><kbd>Esc</kbd> 웹·목차 닫기</li>
+        <li><kbd>E</kbd> 3장에서 의결서 예시 시연</li>
+        <li><kbd>Esc</kbd> 웹·목차·예시 닫기</li>
         <li><kbd>F</kbd> 전체화면</li>
         <li><kbd>G</kbd> 목차</li>
         <li><kbd>N</kbd> 발표 메모</li>
@@ -314,6 +317,24 @@
     </div>
   </div>
 
+  <div class="demo" id="demo" hidden>
+    <header class="demo-bar">
+      <button class="demo-x" type="button" id="demo-close">닫기</button>
+      <p class="demo-bar-title">예시 시연</p>
+      <p class="demo-bar-sub">신설도로에 의한 주거환경 피해 구제 요구</p>
+      <ol class="demo-nav" id="demo-nav" aria-label="시연 단계">
+        <li data-goto-step="0">열쇠</li>
+        <li data-goto-step="1">자료</li>
+        <li data-goto-step="2">분석</li>
+        <li data-goto-step="3">검토</li>
+        <li data-goto-step="4">초안</li>
+      </ol>
+      <button class="demo-replay" type="button" id="demo-replay">다시</button>
+    </header>
+    <div class="demo-body" id="demo-body"></div>
+  </div>
+
+  <script src="demo.js"></script>
   <script src="deck.js"></script>
 </body>
 </html>

@@ -69,6 +69,8 @@
   const gridEl = document.getElementById("gridview");
   const gridList = document.getElementById("gridview-list");
   const hud = document.getElementById("hud");
+  const exampleBtn = document.getElementById("example-btn");
+  const Demo = window.UigeolDemo;
 
   const total = slides.length;
   let index = 0;
@@ -78,8 +80,10 @@
 
   const pad = (n) => String(n + 1).padStart(2, "0");
   const liveOpen = () => liveEl && !liveEl.hasAttribute("hidden");
+  const demoOpen = () => Demo && Demo.isOpen && Demo.isOpen();
   const overlayOpen = () =>
     liveOpen() ||
+    demoOpen() ||
     (helpEl && !helpEl.hasAttribute("hidden")) ||
     (gridEl && !gridEl.hasAttribute("hidden"));
 
@@ -88,6 +92,10 @@
     const tone = slides[index].getAttribute("data-tone");
     document.body.classList.toggle("is-paper", tone === "paper");
     if (notesBody) notesBody.textContent = NOTES[index] || "";
+    if (exampleBtn) {
+      if (index === 2) exampleBtn.removeAttribute("hidden");
+      else exampleBtn.setAttribute("hidden", "");
+    }
   };
 
   const setHash = (n) => {
@@ -186,13 +194,14 @@
     !!(
       el &&
       el.closest &&
-      el.closest("a, button, input, textarea, label, .live, .help, .gridview, .preview, .tool, .end-card, .portfolio-btn")
+      el.closest("a, button, input, textarea, label, .live, .demo, .help, .gridview, .preview, .tool, .end-card, .portfolio-btn, .example-btn")
     );
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       e.preventDefault();
-      if (liveOpen()) closeLive();
+      if (demoOpen()) Demo.close();
+      else if (liveOpen()) closeLive();
       else if (helpEl && !helpEl.hasAttribute("hidden")) show(helpEl, false);
       else if (gridEl && !gridEl.hasAttribute("hidden")) show(gridEl, false);
       else if (notesEl && !notesEl.hasAttribute("hidden")) show(notesEl, false);
@@ -206,6 +215,22 @@
     if (e.key === "?" || (e.key === "/" && e.shiftKey)) {
       e.preventDefault();
       show(helpEl, helpEl.hasAttribute("hidden"));
+      return;
+    }
+
+    if (demoOpen()) {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        e.preventDefault();
+        Demo.pause();
+        Demo.next();
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp" || e.key === "Backspace") {
+        e.preventDefault();
+        Demo.pause();
+        Demo.prev();
+      } else if (e.key === "r" || e.key === "R") {
+        e.preventDefault();
+        Demo.replay();
+      }
       return;
     }
 
@@ -226,6 +251,13 @@
     if (e.key === "n" || e.key === "N") {
       e.preventDefault();
       show(notesEl, notesEl.hasAttribute("hidden"));
+      return;
+    }
+    if (e.key === "e" || e.key === "E") {
+      if (index === 2 && Demo) {
+        e.preventDefault();
+        Demo.open();
+      }
       return;
     }
     if (e.key === "Enter") {
@@ -258,6 +290,13 @@
   });
 
   document.addEventListener("click", (e) => {
+    const exampleHit = e.target.closest("[data-example], #example-btn");
+    if (exampleHit && Demo) {
+      e.preventDefault();
+      e.stopPropagation();
+      Demo.open();
+      return;
+    }
     const liveBtn = e.target.closest("[data-live]");
     if (liveBtn) {
       e.preventDefault();
