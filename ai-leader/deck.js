@@ -51,6 +51,7 @@
   ];
 
   const LIVE_FOR_SLIDE = [null, null, "uigeol", "dallyeo", "assembly", null, "sejong", null];
+  const EXAMPLE_FOR_SLIDE = [null, null, "uigeol", "dallyeo", null, null, null, null];
 
   const slides = Array.from(document.querySelectorAll(".slide"));
   const stage = document.getElementById("stage");
@@ -93,7 +94,7 @@
     document.body.classList.toggle("is-paper", tone === "paper");
     if (notesBody) notesBody.textContent = NOTES[index] || "";
     if (exampleBtn) {
-      if (index === 2) exampleBtn.removeAttribute("hidden");
+      if (EXAMPLE_FOR_SLIDE[index]) exampleBtn.removeAttribute("hidden");
       else exampleBtn.setAttribute("hidden", "");
     }
   };
@@ -265,9 +266,10 @@
       return;
     }
     if (e.key === "e" || e.key === "E") {
-      if (index === 2 && Demo) {
+      const kit = EXAMPLE_FOR_SLIDE[index];
+      if (kit && Demo) {
         e.preventDefault();
-        Demo.open();
+        Demo.open(kit);
       }
       return;
     }
@@ -305,7 +307,9 @@
     if (exampleHit && Demo) {
       e.preventDefault();
       e.stopPropagation();
-      Demo.open();
+      const kit =
+        exampleHit.getAttribute("data-example") || EXAMPLE_FOR_SLIDE[index];
+      if (kit) Demo.open(kit);
       return;
     }
     const liveBtn = e.target.closest("[data-live]");

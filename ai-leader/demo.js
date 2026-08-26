@@ -32,9 +32,32 @@
 
   let step = 0;
   let timers = [];
-  let built = false;
+  let kit = "uigeol";
   let meterTimer = 0;
   let peekOpen = false;
+
+  const KITS = {
+    uigeol: {
+      title: "예시 시연",
+      sub: "신설도로에 의한 주거환경 피해 구제 요구",
+      nav: ["열쇠", "자료", "분석", "검토", "초안"],
+      crumbs: [
+        "1 안내  →  <b>2 열쇠</b>  →  3 작성",
+        "1 안내  →  2 열쇠  →  <b>3 작성</b>",
+        "1 안내  →  2 열쇠  →  <b>3 작성</b>",
+        "<b>내용 검토</b>",
+        "<b>의결서 초안</b>",
+      ],
+      lastHint: "아래로 스크롤해 초안을 확인하세요",
+    },
+    dallyeo: {
+      title: "예시 시연",
+      sub: "달리는 국민신문고",
+      nav: ["사연", "접수"],
+      crumbs: ["<b>사연 보내기</b>", "<b>접수 번호</b>"],
+      lastHint: "접수번호를 확인하세요",
+    },
+  };
 
   const isOpen = () => !el.hasAttribute("hidden");
 
@@ -234,37 +257,97 @@
     "</div>" +
     "</article>";
 
-  const crumbs = [
-    "1 안내  →  <b>2 열쇠</b>  →  3 작성",
-    "1 안내  →  2 열쇠  →  <b>3 작성</b>",
-    "1 안내  →  2 열쇠  →  <b>3 작성</b>",
-    "<b>내용 검토</b>",
-    "<b>의결서 초안</b>",
-  ];
+  const htmlDallyeo = () =>
+    '<article class="demo-app dly-app">' +
+    '  <header class="dly-top">' +
+    '    <p class="dly-brand">달리는 국민신문고</p>' +
+    '    <p class="dly-brand-sub">청년들의 고충민원 사연 제보</p>' +
+    "  </header>" +
+    '  <p class="demo-crumbs" id="demo-crumbs"></p>' +
+    '  <section class="demo-panel" data-panel="0">' +
+    '    <div class="dly-shell">' +
+    "      <h2>사연 보내기</h2>" +
+    '      <p class="dly-note">보내 주신 사연은 지역과 민원 분야를 나누어 참고하기 위해 수집합니다. 개별 민원 접수·처리가 아니며, 이름·연락처 등 개인정보는 수집하지 않습니다.</p>' +
+    '      <div class="dly-field">' +
+    '        <p class="dly-label">나는 누구인가요?</p>' +
+    '        <div class="dly-chips">' +
+    '          <span class="is-on">학생</span><span>군인</span><span>취업 준비중</span><span>사회초년생</span><span>기타</span>' +
+    "        </div>" +
+    "      </div>" +
+    '      <div class="dly-field">' +
+    '        <p class="dly-label">어느 지역인가요?</p>' +
+    '        <div class="dly-region"><div class="demo-field">세종특별자치시</div><div class="demo-field">세종시</div></div>' +
+    "      </div>" +
+    '      <div class="dly-field">' +
+    '        <p class="dly-label">어디로 달려가면 될까요?</p>' +
+    '        <div class="demo-field">○○대학교 학생회관</div>' +
+    "      </div>" +
+    '      <div class="dly-field">' +
+    '        <p class="dly-label">전하고 싶은 사연</p>' +
+    '        <p class="dly-guide">이름, 연락처, 주민번호 등 민감한 개인정보는 적지 마세요.</p>' +
+    '        <div class="dly-story">국민권익위원회, 저의 고충을 상담해 주세요.</div>' +
+    '        <p class="dly-char">24 / 220</p>' +
+    "      </div>" +
+    '      <label class="dly-check is-on"><i></i><span>정식 민원 접수가 아니라 사연 제보임을 알았어요</span></label>' +
+    '      <label class="dly-check is-on"><i></i><span>개인정보는 적지 않았고, 지역·민원 분야 참고를 위한 사연 제공에 동의해요</span></label>' +
+    '      <button type="button" class="demo-btn dly-send" data-next>내 사연 전하기</button>' +
+    "    </div>" +
+    "  </section>" +
+    '  <section class="demo-panel" data-panel="1">' +
+    '    <div class="dly-done">' +
+    '      <div class="dly-heart" aria-hidden="true">✓</div>' +
+    "      <h2>사연이 잘 도착했어요</h2>" +
+    '      <p class="dly-no-lab">사연 번호</p>' +
+    '      <p class="dly-no">DS-202608-000041</p>' +
+    "      <p>남겨 주셔서 감사합니다. 지역·민원 분야 참고 자료로 활용됩니다.</p>" +
+    '      <p class="dly-again">다시 보내기 가능: 2026. 9. 25.</p>' +
+    '      <div class="dly-mine">' +
+    "        <h3>내 사연</h3>" +
+    '        <div class="dly-mine-card">' +
+    "          <b>세종특별자치시 세종시 · ○○대학교 학생회관</b>" +
+    "          <span>학생</span>" +
+    "          <p>국민권익위원회, 저의 고충을 상담해 주세요.</p>" +
+    "        </div>" +
+    "      </div>" +
+    "    </div>" +
+    "  </section>" +
+    "</article>";
+
+  const spec = () => KITS[kit] || KITS.uigeol;
+
+  const paintNav = () => {
+    const s = spec();
+    nav.innerHTML = s.nav
+      .map((label, i) => '<li data-goto-step="' + i + '">' + label + "</li>")
+      .join("");
+    const sub = document.getElementById("demo-bar-sub");
+    if (sub) sub.textContent = s.sub;
+    el.classList.toggle("is-dallyeo", kit === "dallyeo");
+  };
 
   const build = () => {
-    if (built) return;
-    body.innerHTML = html();
-    built = true;
+    body.innerHTML = kit === "dallyeo" ? htmlDallyeo() : html();
+    paintNav();
   };
 
   const syncNav = () => {
     if (!nav) return;
+    const s = spec();
     nav.querySelectorAll("li").forEach((li, i) => {
       li.classList.toggle("is-on", i === step);
       li.classList.toggle("is-done", i < step);
     });
     const crumb = document.getElementById("demo-crumbs");
-    if (crumb) crumb.innerHTML = crumbs[step] || "";
+    if (crumb) crumb.innerHTML = s.crumbs[step] || "";
     body.querySelectorAll(".demo-panel").forEach((p) => {
       p.hidden = Number(p.getAttribute("data-panel")) !== step;
     });
     el.setAttribute("data-step", String(step));
-    el.classList.toggle("is-ready", step === 1);
+    el.classList.toggle("is-ready", kit === "uigeol" && step === 1);
     const hint = document.getElementById("demo-hint-bar");
     if (hint) {
-      hint.textContent =
-        step === 4 ? "아래로 스크롤해 초안을 확인하세요" : "스페이스 · → 다음";
+      const last = s.nav.length - 1;
+      hint.textContent = step === last ? s.lastHint : "스페이스 · → 다음";
     }
     body.scrollTo({ top: 0, behavior: step === 1 ? "auto" : "smooth" });
   };
@@ -295,10 +378,11 @@
   };
 
   const go = (n) => {
-    if (n < 0 || n > 4) return;
+    const max = spec().nav.length - 1;
+    if (n < 0 || n > max) return;
     step = n;
     syncNav();
-    if (step === 2) runAnalyze();
+    if (kit === "uigeol" && step === 2) runAnalyze();
   };
 
   const next = () => {
@@ -326,13 +410,14 @@
     peekOpen = false;
   };
 
-  const open = () => {
-    build();
+  const open = (kind) => {
+    kit = kind === "dallyeo" ? "dallyeo" : "uigeol";
     clearTimers();
     step = 0;
+    closePeek();
+    build();
     el.removeAttribute("hidden");
     document.body.classList.add("is-demo");
-    closePeek();
     syncNav();
   };
 
