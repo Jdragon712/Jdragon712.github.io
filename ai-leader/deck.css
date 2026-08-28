@@ -181,7 +181,7 @@ img { max-width: 100%; display: block; border: 0; }
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   align-items: stretch;
 }
@@ -472,7 +472,7 @@ img { max-width: 100%; display: block; border: 0; }
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   align-items: stretch;
 }
