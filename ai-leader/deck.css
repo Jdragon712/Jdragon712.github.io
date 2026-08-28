@@ -750,12 +750,34 @@ kbd {
   .bar { flex-wrap: wrap; gap: 12px; }
 }
 @media (max-width: 720px) {
-  .slide { overflow: auto; }
+  .slide {
+    overflow: auto;
+    overflow-x: clip;
+    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  }
   .cover-stage { max-height: none; width: 100%; }
   .stack-card { position: relative; width: 100%; left: auto !important; top: auto !important; transform: none !important; margin-bottom: 12px; }
-  .tools, .end-grid { grid-template-columns: 1fr; }
+  .tools, .end-grid {
+    grid-template-columns: 1fr;
+    flex: 0 0 auto;
+    min-height: auto;
+    height: auto;
+  }
   .excel { grid-template-columns: 1fr; }
   .excel-arrow { transform: rotate(90deg); }
+  .foot-line {
+    position: relative;
+    z-index: 1;
+    margin-top: 18px;
+  }
+  .folio {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: flex-end;
+    margin: 12px 4px 8px;
+  }
+  .hero { flex: 0 1 auto; min-height: 220px; }
 }
 
 /* ── 예시 시연 ── */
