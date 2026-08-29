@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>야근하기 싫었습니다 — AI 혁신리더 성과 발표</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="deck.css?v=20260828c">
+  <link rel="stylesheet" href="deck.css?v=20260829a">
 </head>
 <body>
   <div class="viewport" id="viewport">
@@ -225,6 +225,9 @@
 
   <button class="example-btn" type="button" id="example-btn" hidden>예시</button>
   <a class="portfolio-btn" href="https://jdragon712.github.io/" target="_blank" rel="noopener">포트폴리오</a>
+  <div class="extra-rail" aria-label="추가 자료">
+    <button class="extra-btn" type="button" id="appdev-btn">+앱개발</button>
+  </div>
 
   <div class="progress" aria-hidden="true"><i id="progress"></i></div>
 
@@ -266,7 +269,27 @@
         <li><kbd>F</kbd> 전체화면</li>
         <li><kbd>G</kbd> 목차</li>
         <li><kbd>N</kbd> 발표 메모</li>
+        <li><kbd>A</kbd> 앱개발 자료</li>
       </ul>
+    </div>
+  </div>
+
+  <div class="appdev" id="appdev" hidden>
+    <header class="appdev-bar">
+      <button class="appdev-x" type="button" id="appdev-close">닫기</button>
+      <div class="appdev-copy">
+        <p class="appdev-kicker">민턴 콕콕 · App Store</p>
+        <p class="appdev-title" id="appdev-title">앱 개발자 등록과 출시</p>
+        <p class="appdev-cue" id="appdev-cue"></p>
+      </div>
+      <p class="appdev-count" id="appdev-count">1 / 6</p>
+      <button class="appdev-nav" type="button" id="appdev-prev">이전</button>
+      <button class="appdev-nav" type="button" id="appdev-next">다음</button>
+    </header>
+    <div class="appdev-body">
+      <figure class="appdev-frame">
+        <img id="appdev-img" alt="">
+      </figure>
     </div>
   </div>
 
@@ -289,6 +312,6 @@
   </div>
 
   <script src="demo.js?v=20260826c"></script>
-  <script src="deck.js?v=20260828c"></script>
+  <script src="deck.js?v=20260829a"></script>
 </body>
 </html>
