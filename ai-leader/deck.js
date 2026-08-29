@@ -108,6 +108,10 @@
       if (EXAMPLE_FOR_SLIDE[index]) exampleBtn.removeAttribute("hidden");
       else exampleBtn.setAttribute("hidden", "");
     }
+    if (appdevBtn) {
+      if (index === total - 1) appdevBtn.removeAttribute("hidden");
+      else appdevBtn.setAttribute("hidden", "");
+    }
   };
 
   const setHash = (n) => {
@@ -230,7 +234,7 @@
     !!(
       el &&
       el.closest &&
-      el.closest("a, button, input, textarea, label, .live, .demo, .appdev, .help, .gridview, .preview, .tool, .end-card, .portfolio-btn, .example-btn, .extra-btn")
+      el.closest("a, button, input, textarea, label, .live, .demo, .appdev, .help, .gridview, .preview, .tool, .end-card, .portfolio-btn, .example-btn, .appdev-launch")
     );
 
   document.addEventListener("keydown", (e) => {
