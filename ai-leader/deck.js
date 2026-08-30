@@ -109,7 +109,7 @@
       else exampleBtn.setAttribute("hidden", "");
     }
     if (appdevBtn) {
-      if (index === total - 1) appdevBtn.removeAttribute("hidden");
+      if (slides[index] && slides[index].id === "s06") appdevBtn.removeAttribute("hidden");
       else appdevBtn.setAttribute("hidden", "");
     }
   };
