@@ -53,9 +53,9 @@
     dallyeo: {
       title: "예시 시연",
       sub: "달리는 국민신문고",
-      nav: ["사연", "접수"],
-      crumbs: ["<b>사연 보내기</b>", "<b>접수 번호</b>"],
-      lastHint: "접수번호를 확인하세요",
+      nav: ["소개", "사연접수", "관리자"],
+      crumbs: ["<b>소개 · 사례</b>", "<b>사연 접수</b>", "<b>관리자</b>"],
+      lastHint: "관리자 화면을 확인하세요",
     },
   };
 
@@ -265,6 +265,29 @@
     "  </header>" +
     '  <p class="demo-crumbs" id="demo-crumbs"></p>' +
     '  <section class="demo-panel" data-panel="0">' +
+    '    <div class="dly-home">' +
+    '      <div class="dly-hero-copy"><h2>청년이 <em>원(願)</em>하면<br>달려갑니다!</h2></div>' +
+    '      <div class="dly-about">' +
+    '        <p class="dly-about-label">달리는 국민신문고란</p>' +
+    "        <p>국민권익위원회의 권익구제 서비스를 모르거나 활용이 어려운 소외지역 및 취약계층 등을 직접 찾아가 현장에서 고충을 청취하고 해소하는 찾아가는 현장 권익구제 서비스입니다.</p>" +
+    '        <p>“우리 학교·부대·동네에 <strong>달리는 국민신문고</strong>가 와서 상담해 줬으면 좋겠어”라고 사연을 보낼 수 있습니다.</p>' +
+    "      </div>" +
+    '      <div class="dly-jumps"><span>사례 보기</span><span class="is-fill">사연 보내기</span></div>' +
+    '      <div class="dly-cases">' +
+    "        <h3>청년 고충민원, 이렇게 해결되었어요</h3>" +
+    '        <div class="dly-def">' +
+    '          <p class="dly-def-label">고충민원이란</p>' +
+    "          <p>행정기관 등의 위법·부당하거나 소극적인 처분(사실행위 포함), 불합리한 행정제도로 인하여 국민의 권리를 침해하거나 불편·부담을 주는 사항에 관한 민원을 말합니다.</p>" +
+    "          <p class=\"dly-def-cite\">「부패방지 및 국민권익위원회의 설치와 운영에 관한 법률」 제2조 제5호</p>" +
+    "        </div>" +
+    "        <ol>" +
+    "          <li><b>1</b><div><strong>출산지원금, 전입 하루 차이</strong><p>이사 준비는 끝났는데 출산이 하루 빨라 전입신고 전에 출산을 했고, 지원금을 받지 못한 상황입니다.</p><em>제도의 취지와 준비 과정을 보고 지급 방향으로 시정되었습니다.</em></div></li>" +
+    "          <li><b>2</b><div><strong>청년 임대주택과 온라인 창업</strong><p>공공 임대에 살면서 온라인 쇼핑몰 사업자 주소를 바꾸려다 임대주택에서는 안 된다는 답을 받은 경우입니다.</p><em>용도를 바꾸지 않는 조건으로 거주와 사업이 함께 가능해졌습니다.</em></div></li>" +
+    "        </ol>" +
+    "      </div>" +
+    "    </div>" +
+    "  </section>" +
+    '  <section class="demo-panel" data-panel="1">' +
     '    <div class="dly-shell">' +
     "      <h2>사연 보내기</h2>" +
     '      <p class="dly-note">보내 주신 사연은 지역과 민원 분야를 나누어 참고하기 위해 수집합니다. 개별 민원 접수·처리가 아니며, 이름·연락처 등 개인정보는 수집하지 않습니다.</p>' +
@@ -293,22 +316,25 @@
     '      <button type="button" class="demo-btn dly-send" data-next>내 사연 전하기</button>' +
     "    </div>" +
     "  </section>" +
-    '  <section class="demo-panel" data-panel="1">' +
-    '    <div class="dly-done">' +
-    '      <div class="dly-heart" aria-hidden="true">✓</div>' +
-    "      <h2>사연이 잘 도착했어요</h2>" +
-    '      <p class="dly-no-lab">사연 번호</p>' +
-    '      <p class="dly-no">DS-202608-000041</p>' +
-    "      <p>남겨 주셔서 감사합니다. 지역·민원 분야 참고 자료로 활용됩니다.</p>" +
-    '      <p class="dly-again">다시 보내기 가능: 2026. 9. 25.</p>' +
-    '      <div class="dly-mine">' +
-    "        <h3>내 사연</h3>" +
-    '        <div class="dly-mine-card">' +
-    "          <b>세종특별자치시 세종시 · ○○대학교 학생회관</b>" +
-    "          <span>학생</span>" +
-    "          <p>국민권익위원회, 저의 고충을 상담해 주세요.</p>" +
-    "        </div>" +
+    '  <section class="demo-panel" data-panel="2">' +
+    '    <div class="dly-admin">' +
+    '      <div class="dly-admin-head">' +
+    "        <div><strong>사연 관리</strong><span>달리는 국민신문고</span></div>" +
+    "        <em>공개 페이지</em>" +
     "      </div>" +
+    '      <p class="dly-admin-stats">사연 3건</p>' +
+    '      <div class="dly-admin-filters">' +
+    "        <span>전체 지역</span><span>전체 기간</span><span>전체 대상</span>" +
+    "        <span>새로고침</span><span>CSV 받기</span>" +
+    "      </div>" +
+    '      <table class="dly-table">' +
+    "        <thead><tr><th>번호</th><th>접수</th><th>지역</th><th>대상</th><th>분야</th><th>장소</th><th>사연</th></tr></thead>" +
+    "        <tbody>" +
+    "          <tr><td>DS-202608-000041</td><td>08.26</td><td>세종</td><td>학생</td><td>행정문화교육</td><td>○○대학교 학생회관</td><td>국민권익위원회, 저의 고충을 상담해 주세요.</td></tr>" +
+    "          <tr><td>DS-202608-000038</td><td>08.21</td><td>충남 계룡</td><td>군인</td><td>국방보훈</td><td>○○부대 정문</td><td>전역을 앞두고 상담을 받고 싶습니다.</td></tr>" +
+    "          <tr><td>DS-202608-000027</td><td>08.12</td><td>대전 유성</td><td>취업 준비중</td><td>복지노동</td><td>○○일자리센터</td><td>청년 지원 제도를 현장에서 알고 싶습니다.</td></tr>" +
+    "        </tbody>" +
+    "      </table>" +
     "    </div>" +
     "  </section>" +
     "</article>";
