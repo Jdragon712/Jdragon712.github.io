@@ -53,8 +53,8 @@
     dallyeo: {
       title: "예시 시연",
       sub: "달리는 국민신문고",
-      nav: ["소개", "사연접수", "관리자"],
-      crumbs: ["<b>소개 · 사례</b>", "<b>사연 접수</b>", "<b>관리자</b>"],
+      nav: ["소개", "사연접수", "도착", "관리자"],
+      crumbs: ["<b>소개 · 사례</b>", "<b>사연 접수</b>", "<b>접수 번호</b>", "<b>관리자</b>"],
       lastHint: "관리자 화면을 확인하세요",
     },
   };
@@ -317,6 +317,24 @@
     "    </div>" +
     "  </section>" +
     '  <section class="demo-panel" data-panel="2">' +
+    '    <div class="dly-done">' +
+    '      <div class="dly-heart" aria-hidden="true">✓</div>' +
+    "      <h2>사연이 잘 도착했어요</h2>" +
+    '      <p class="dly-no-lab">사연 번호</p>' +
+    '      <p class="dly-no">DS-202608-000041</p>' +
+    "      <p>남겨 주셔서 감사합니다. 지역·민원 분야 참고 자료로 활용됩니다.</p>" +
+    '      <p class="dly-again">다시 보내기 가능: 2026. 9. 25.</p>' +
+    '      <div class="dly-mine">' +
+    "        <h3>내 사연</h3>" +
+    '        <div class="dly-mine-card">' +
+    "          <b>세종특별자치시 세종시 · ○○대학교 학생회관</b>" +
+    "          <span>학생</span>" +
+    "          <p>국민권익위원회, 저의 고충을 상담해 주세요.</p>" +
+    "        </div>" +
+    "      </div>" +
+    "    </div>" +
+    "  </section>" +
+    '  <section class="demo-panel" data-panel="3">' +
     '    <div class="dly-admin">' +
     '      <div class="dly-admin-head">' +
     "        <div><strong>사연 관리</strong><span>달리는 국민신문고</span></div>" +
